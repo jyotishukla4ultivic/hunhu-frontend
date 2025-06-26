@@ -1,0 +1,92 @@
+<div class="p-4 bg-gray-50 min-h-screen">
+     <h1 class="text-2xl font-bold mb-4">Agency</h1>
+  <div class="flex items-center justify-between  border bg-white rounded-[8px] px-4 py-3 mb-6">
+    <div class="flex-1 flex items-center">
+      <div class="relative w-full max-w-xs">
+        <input
+          class="w-full border border-gray-200 rounded-full px-4 py-2 pr-10 text-sm focus:ring-2 focus:ring-blue-200 outline-none"
+          placeholder="Search Agency"
+          [(ngModel)]="search"
+        />
+        <span class="material-icons absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-base">search</span>
+      </div>
+    </div>
+    <div class="flex gap-2 ml-4 relative">
+      <button
+        class="flex items-center gap-1 px-4 py-2 rounded bg-[#1952B3] text-white font-semibold shadow hover:bg-[#143e7d] transition"
+        (click)="toggleFilter()"
+        #filterBtn
+      >
+        <span class="material-icons text-base">filter_list</span> Filter
+      </button>
+      <button
+        class="px-4 py-2 rounded bg-[#1952B3] text-white font-semibold shadow hover:bg-[#143e7d] transition"
+        (click)="goToAddAgency()"
+      >
+        Add Agency
+      </button>
+      <ng-container *ngIf="showFilter">
+        <div class="fixed inset-0 z-30" (click)="showFilter = false"></div>
+        <div class="absolute z-40 right-0 mt-2 w-80 bg-white rounded-xl shadow p-6 border-2 border-[#2196F3] border-dashed" style="top:100%; background:rgba(255,0,0,0.1);">
+          <div class="font-bold text-base mb-5">Filter</div>
+          <div class="mb-5">
+            <div class="font-semibold text-sm mb-2">Category</div>
+            <div class="flex flex-col gap-2">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="category" value="Gym" [(ngModel)]="filter.category" class="accent-[#2196F3] w-5 h-5" />
+                <span class="material-icons text-[#2196F3] text-lg">fitness_center</span>
+                <span class="text-sm font-medium">Gym</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="category" value="Spiritual" [(ngModel)]="filter.category" class="accent-[#2196F3] w-5 h-5" />
+                <span class="material-icons text-[#B39DDB] text-lg">self_improvement</span>
+                <span class="text-sm font-medium">Spiritual</span>
+              </label>
+            </div>
+          </div>
+          <div class="mb-5">
+            <div class="font-semibold text-sm mb-2">Join Date</div>
+            <div class="relative">
+              <input type="date" class="border border-[#E0E7EF] rounded-lg px-3 py-2 w-full text-sm focus:ring-2 focus:ring-[#2196F3]" [(ngModel)]="filter.joinDate" />
+              <span class="material-icons absolute right-3 top-1/2 -translate-y-1/2 text-[#2196F3] text-lg pointer-events-none">calendar_today</span>
+            </div>
+          </div>
+          <div class="mb-5">
+            <div class="font-semibold text-sm mb-2">Mobile Number</div>
+            <input type="text" class="border border-[#E0E7EF] rounded-lg px-3 py-2 w-full text-sm focus:ring-2 focus:ring-[#2196F3]" placeholder="Enter mobile number" [(ngModel)]="filter.mobile" />
+          </div>
+          <div class="mb-6">
+            <div class="font-semibold text-sm mb-2">Status</div>
+            <select class="border border-[#E0E7EF] rounded-lg px-3 py-2 w-full text-sm focus:ring-2 focus:ring-[#2196F3]" [(ngModel)]="filter.status">
+              <option value="">Select Status</option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+          <div class="flex gap-3">
+            <button class="border border-[#2196F3] px-5 py-2 rounded-lg bg-white text-[#2196F3] font-semibold text-sm flex-1 transition hover:bg-[#F5F8FF]" (click)="resetFilter()">Reset</button>
+            <button class="border border-[#2196F3] px-5 py-2 rounded-lg bg-[#2196F3] text-white font-semibold text-sm flex-1 flex items-center justify-center gap-1 transition hover:bg-[#1769AA]" (click)="applyFilter()">
+              <span class="material-icons text-base">filter_list</span> Apply Filter
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="flex gap-6">
+    <div class="flex-1">
+      <app-common-table
+        [columns]="columns"
+        [data]="pagedData"
+        [actions]="actions"
+        [selectable]="true"
+        [nameClick]="onNameClick"
+      ></app-common-table>
+      <app-common-pagination
+        [page]="page"
+        [totalPages]="Math.ceil(filteredData.length / pageSize)"
+        (pageChange)="onPageChange($event)"
+      ></app-common-pagination>
+    </div>
+  </div>
+</div> 

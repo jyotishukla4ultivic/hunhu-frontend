@@ -1,0 +1,51 @@
+<nav class="bg-white h-full shadow-md flex flex-col">
+   <div class="pt-6 pr-10 pb-6 pl-6 font-bold text-xl text-blue-700">Hunhu</div>
+  <div class="px-6">
+
+  <ul class="">
+    <li style="">
+      <a routerLink="/admin/dashboard" routerLinkActive="!bg-[#1952B3] !text-white" [routerLinkActiveOptions]="{ exact: true }"
+         class="flex items-center gap-3 px-6 py-3 rounded-lg transition-colors hover:text-[#1952B3]"
+
+  >
+        <span class="material-icons">radio_button_checked</span>
+        Dashboard
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/agency" routerLinkActive="!bg-[#1952B3] !text-white" [routerLinkActiveOptions]="{ exact: true }"
+         class="flex items-center gap-3 px-6 py-3 rounded-lg transition-colors hover:text-[#1952B3]">
+        <span class="material-icons">groups</span>
+        Agency
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/category" routerLinkActive="!bg-[#1952B3] !text-white" [routerLinkActiveOptions]="{ exact: true }"
+         class="flex items-center gap-3 px-6 py-3 rounded-lg transition-colors hover:text-[#1952B3]" [ngClass]="{ '!bg-[#1952B3] !text-white': isActivePath('/admin/category') }">
+        <span class="material-icons">category</span>
+        Category
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/payment-history" routerLinkActive="!bg-[#1952B3] !text-white" [routerLinkActiveOptions]="{ exact: true }"
+         class="flex items-center gap-3 px-6 py-3 rounded-lg transition-colors hover:text-[#1952B3]" [ngClass]="{ '!bg-[#1952B3] !text-white': isActivePath('/admin/payment-history') }"
+>
+        <span class="material-icons">history</span>
+        Payment History
+      </a>
+    </li>
+  </ul>
+  <div class="border-t">
+    <a routerLink="/admin/settings" routerLinkActive="!bg-[#1952B3] !text-white" [routerLinkActiveOptions]="{ exact: true }"
+       class="flex items-center gap-3 px-6 py-3 rounded-lg transition-colors hover:text-[#1952B3]">
+      <span class="material-icons">settings</span>
+      Settings
+    </a>
+    <a routerLink="/admin/logout" routerLinkActive="!bg-[#1952B3] !text-white" [routerLinkActiveOptions]="{ exact: true }"
+       class="flex items-center gap-3 px-6 py-3 rounded-lg transition-colors hover:text-[#1952B3]">
+      <span class="material-icons">logout</span>
+      Logout
+    </a>
+  </div>
+</div>
+</nav> 

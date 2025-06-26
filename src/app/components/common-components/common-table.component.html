@@ -1,0 +1,56 @@
+<div class="overflow-x-auto rounded-xl shadow bg-white">
+  <table class="min-w-full text-sm">
+    <thead class="bg-gray-50">
+      <tr>
+        <th *ngIf="selectable" class="px-4 py-2">
+          <input type="checkbox" [checked]="selectedRows.size === data.length" (change)="toggleAll()" />
+        </th>
+        <th *ngFor="let col of columns" class="px-4 py-2 text-left font-semibold text-gray-700">{{col.label}}</th>
+        <th *ngIf="actions?.length" class="px-4 py-2"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of data" class="border-t hover:bg-gray-50">
+        <td *ngIf="selectable" class="px-4 py-2">
+          <input type="checkbox" [checked]="isSelected(row)" (change)="toggleRow(row)" />
+        </td>
+        <td *ngFor="let col of columns" class="px-4 py-2">
+          <ng-container [ngSwitch]="col.key">
+            <ng-container *ngSwitchCase="'name'">
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-gray-500 font-bold text-base">
+                  {{row.avatar || (row.name ? row.name[0] : '')}}
+                </span>
+                <div>
+                  <a
+                    class="font-medium text-blue-700 hover:underline cursor-pointer"
+                    (click)="nameClick && nameClick(row)"
+                  >{{row.name}}</a>
+                  <div class="text-xs text-gray-400">{{row.subtext}}</div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'status'">
+              <span [ngClass]="{
+                'bg-green-100 text-green-700': row.status === 'Active',
+                'bg-red-100 text-red-700': row.status === 'Inactive'
+              }" class="px-3 py-1 rounded-full text-xs font-semibold">
+                {{row.status}}
+              </span>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              {{row[col.key]}}
+            </ng-container>
+          </ng-container>
+        </td>
+        <td *ngIf="actions?.length" class="px-4 py-2 flex gap-2">
+          <ng-container *ngFor="let action of actions">
+            <button (click)="action.onClick(row)" [ngClass]="action.color || 'text-gray-500 hover:text-blue-600'">
+              <span class="material-icons">{{action.icon}}</span>
+            </button>
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div> 

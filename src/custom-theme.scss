@@ -1,0 +1,14 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$hunhu-primary: mat.define-palette(mat.$indigo-palette);
+$hunhu-accent:  mat.define-palette(mat.$blue-grey-palette, A200, A100, A400);
+$hunhu-theme:   mat.define-light-theme((
+  color: (
+    primary: $hunhu-primary,
+    accent: $hunhu-accent,
+  ),
+));
+
+@include mat.all-component-themes($hunhu-theme);
