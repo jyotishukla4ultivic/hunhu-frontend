@@ -20,4 +20,4 @@ export class CommonChartComponent {
   @Input() data!: ChartConfiguration['data'];
   @Input() options?: ChartConfiguration['options'];
   @Input() type: ChartType = 'line';
-} 
+}
