@@ -20,9 +20,7 @@ export const routes: Routes = [
       { path: 'agency', component: AgencyComponent },
       { path: 'agency/add', component: AddAgencyComponent },
       {
-        path: 'agency/:id', component: AgencyDetailComponent, data: {
-          renderMode: 'no-prerender' // ✅ this is what Vercel looks for
-        }
+        path: 'agency/:id', component: AgencyDetailComponent,  data: { renderMode: 'no-prerender' } 
       },
       { path: 'category', component: CategoryComponent },
       { path: 'payment-history', component: PaymentHistoryComponent },

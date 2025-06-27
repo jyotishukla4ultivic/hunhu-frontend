@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { CommonTableComponent } from '../../../components/common-components/common-table.component';
 import { CommonPaginationComponent } from '../../../components/common-components/common-pagination.component';
 import { FormsModule } from '@angular/forms';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-agency',
   standalone: true,
-  imports: [CommonTableComponent, CommonPaginationComponent, FormsModule],
+  imports: [CommonTableComponent, CommonPaginationComponent, FormsModule,NgIf, NgFor],
   templateUrl: './agency.component.html',
   styleUrls: ['./agency.component.css']
 })
