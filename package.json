@@ -1,14 +1,16 @@
 {
   "name": "hunhu-frontend",
   "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr:hunhu-frontend": "node dist/hunhu-frontend/server/server.mjs"
-  },
+ "scripts": {
+  "ng": "ng",
+  "start": "ng serve",
+  "build": "ng build",
+  "watch": "ng build --watch --configuration development",
+  "test": "ng test",
+  "serve:ssr:hunhu-frontend": "node dist/hunhu-frontend/server/server.mjs",
+  "vercel-build": "npm install --legacy-peer-deps && npm run build -- --configuration production"
+},
+
   "private": true,
   "dependencies": {
     "@angular/cdk": "^20.0.3",
@@ -23,7 +25,6 @@
     "@angular/ssr": "^20.0.3",
     "chart.js": "^4.4.0",
     "express": "^5.1.0",
-    "ng2-charts": "^5.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
