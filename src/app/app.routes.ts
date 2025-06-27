@@ -19,7 +19,7 @@ export const routes: Routes = [
         { path: 'dashboard', component: DashboardComponent },
         { path: 'agency', component: AgencyComponent },
         { path: 'agency/add', component: AddAgencyComponent },
-        { path: 'agency/:id', component: AgencyDetailComponent },
+        { path: 'agency/:id', component: AgencyDetailComponent, data: { render: false } },
         { path: 'category', component: CategoryComponent },
         { path: 'payment-history', component: PaymentHistoryComponent },
         { path: 'settings', component: SettingsComponent },
