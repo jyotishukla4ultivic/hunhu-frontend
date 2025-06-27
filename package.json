@@ -4,11 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:hunhu-frontend": "node dist/hunhu-frontend/server/server.mjs",
-    "vercel-build": "npm install --legacy-peer-deps && npm run build -- --configuration production"
+    "serve:ssr:hunhu-frontend": "node dist/hunhu-frontend/server/server.mjs"
   },
   "private": true,
   "dependencies": {
