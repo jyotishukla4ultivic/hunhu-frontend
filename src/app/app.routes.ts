@@ -11,23 +11,26 @@ import { AgencyDetailComponent } from './pages/admin/agency/agency-detail.compon
 import { AddAgencyComponent } from './pages/admin/agency/add-agency.component';
 
 export const routes: Routes = [
-    { path: 'signin', component: Signin },
-    {
-      path: 'admin',
-      component: AdminLayoutComponent,
-      children: [
-        { path: 'dashboard', component: DashboardComponent },
-        { path: 'agency', component: AgencyComponent },
-        { path: 'agency/add', component: AddAgencyComponent },
-        { path: 'agency/:id', component: AgencyDetailComponent, data: { render: false } },
-        { path: 'category', component: CategoryComponent },
-        { path: 'payment-history', component: PaymentHistoryComponent },
-        { path: 'settings', component: SettingsComponent },
-        { path: 'logout', component: LogoutComponent },
-        { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
-      ]
-    },
-    { path: '', redirectTo: '/signin', pathMatch: 'full' }, // default route
-    // other routes...
-  ];
-  
+  { path: 'signin', component: Signin },
+  {
+    path: 'admin',
+    component: AdminLayoutComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'agency', component: AgencyComponent },
+      { path: 'agency/add', component: AddAgencyComponent },
+      {
+        path: 'agency/:id', component: AgencyDetailComponent, data: {
+          renderMode: 'no-prerender' // ✅ this is what Vercel looks for
+        }
+      },
+      { path: 'category', component: CategoryComponent },
+      { path: 'payment-history', component: PaymentHistoryComponent },
+      { path: 'settings', component: SettingsComponent },
+      { path: 'logout', component: LogoutComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+    ]
+  },
+  { path: '', redirectTo: '/signin', pathMatch: 'full' }, // default route
+  // other routes...
+];
