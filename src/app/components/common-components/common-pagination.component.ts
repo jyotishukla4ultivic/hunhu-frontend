@@ -1,10 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { NgClass } from '@angular/common';
+import { NgClass, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-common-pagination',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, CommonModule],
   template: `
     <div class="flex items-center gap-2 mt-4">
       <button class="px-3 h-8 flex items-center justify-center border border-[#E0E7EF] rounded-[6px] bg-white text-[#1952B3] font-medium hover:bg-[#F5F8FF] transition text-sm" [disabled]="page === 1" (click)="changePage(page - 1)">&lt; Back</button>

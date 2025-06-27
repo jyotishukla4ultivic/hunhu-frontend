@@ -8,37 +8,37 @@ import { NgIf, NgFor } from '@angular/common';
 @Component({
   selector: 'app-agency',
   standalone: true,
-  imports: [CommonTableComponent, CommonPaginationComponent, FormsModule,NgIf, NgFor],
+  imports: [CommonTableComponent, CommonPaginationComponent, FormsModule, NgIf, NgFor],
   templateUrl: './agency.component.html',
   styleUrls: ['./agency.component.css']
 })
 export class AgencyComponent {
   page = 1;
-  pageSize = 12;
+  pageSize = 10;
   search = '';
   showFilter = false;
 
   filter = {
-    category: '',
+    categories: [] as string[], // ✅ now an array
     joinDate: '',
     mobile: '',
     status: ''
   };
 
   columns = [
-    {label: 'Name', key: 'name'},
-    {label: 'Join Date', key: 'joinDate'},
-    {label: 'Mobile No', key: 'mobile'},
-    {label: 'Commission', key: 'commission'},
-    {label: 'Status', key: 'status'},
-    {label: 'Providers', key: 'providers'},
-    {label: 'Consumers', key: 'consumers'}
+    { label: 'Name', key: 'name' },
+    { label: 'Join Date', key: 'joinDate' },
+    { label: 'Mobile No', key: 'mobile' },
+    { label: 'Commission', key: 'commission' },
+    { label: 'Status', key: 'status' },
+    { label: 'Providers', key: 'providers' },
+    { label: 'Consumers', key: 'consumers' }
   ];
 
-  data = Array.from({length: 42}).map((_, i) => ({
+  data = Array.from({ length: 42 }).map((_, i) => ({
     id: i + 1,
     name: `Agency ${i < 9 ? '0' : ''}${i + 1}`,
-    subtext: i % 2 === 0 ? 'Spiritual' : 'Fitness',
+    subtext: i % 2 === 0 ? 'Spiritual' : 'Gym',
     joinDate: '10 March, 2023',
     mobile: '00 000 00000',
     commission: i % 3 === 0 ? '15%' : '10%',
@@ -49,7 +49,7 @@ export class AgencyComponent {
 
   get filteredData() {
     return this.data.filter(row => {
-      const matchesCategory = !this.filter.category || row.subtext === this.filter.category;
+      const matchesCategory = this.filter.categories.length === 0 || this.filter.categories.includes(row.subtext);
       const matchesJoinDate = !this.filter.joinDate || row.joinDate === this.filter.joinDate;
       const matchesMobile = !this.filter.mobile || row.mobile.includes(this.filter.mobile);
       const matchesStatus = !this.filter.status || row.status === this.filter.status;
@@ -70,8 +70,9 @@ export class AgencyComponent {
   }
 
   actions = [
-    {icon: 'edit', label: 'Edit', onClick: (row: any) => {}},
-    {icon: 'delete', label: 'Delete', onClick: (row: any) => {}}
+    { icon: 'edit', label: 'Edit', onClick: (row: any) => {} },
+    { icon: 'delete', label: 'Delete', onClick: (row: any) => {} },
+    { icon: 'view', label: 'View', onClick: (row: any) => {} }
   ];
 
   constructor(private router: Router) {}
@@ -94,8 +95,17 @@ export class AgencyComponent {
   }
 
   resetFilter() {
-    this.filter = { category: '', joinDate: '', mobile: '', status: '' };
+    this.filter = { categories: [], joinDate: '', mobile: '', status: '' };
     this.page = 1;
+  }
+
+  toggleCategory(category: string) {
+    const index = this.filter.categories.indexOf(category);
+    if (index === -1) {
+      this.filter.categories.push(category);
+    } else {
+      this.filter.categories.splice(index, 1);
+    }
   }
 
   get Math() {
@@ -105,4 +115,4 @@ export class AgencyComponent {
   goToAddAgency() {
     this.router.navigate(['/admin/agency/add']);
   }
-} 
+}

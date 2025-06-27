@@ -45,7 +45,8 @@ export class DashboardComponent {
   ];
   actions = [
     {icon: 'edit', label: 'Edit', onClick: (row: any) => {}},
-    {icon: 'delete', label: 'Delete', onClick: (row: any) => {}}
+    {icon: 'delete', label: 'Delete', onClick: (row: any) => {}},
+    {icon: 'view', label: 'View', onClick: (row: any) => {}}
   ];
 
   chartData = {

@@ -4,49 +4,73 @@
     <ul>
       <li>
         <a routerLink="/admin/dashboard"
-           class="flex items-center gap-3 px-6 py-3 rounded-lg transition-colors hover:text-[#1952B3]"
-           [ngClass]="{ '!bg-[#1952B3] !text-white': isActivePath('/admin/dashboard') }">
-          <span class="material-icons">radio_button_checked</span>
-          Dashboard
+           class="flex items-center py-3 rounded-lg transition-colors hover:text-[#1952B3]"
+           [ngClass]="{ '!bg-[#1952B3] !text-white border-l-4 border-[#1952B3]': isActivePath('/admin/dashboard') }"
+           [style.borderLeftWidth]="isActivePath('/admin/dashboard') ? '4px' : '0'"
+           [style.borderLeftColor]="isActivePath('/admin/dashboard') ? '#1952B3' : 'transparent'">
+          <span class="pl-6 flex items-center gap-3 w-full">
+            <span class="material-icons">radio_button_checked</span>
+            Dashboard
+          </span>
         </a>
       </li>
       <li>
         <a routerLink="/admin/agency"
-           class="flex items-center gap-3 px-6 py-3 rounded-lg transition-colors hover:text-[#1952B3]"
-           [ngClass]="{ '!bg-[#1952B3] !text-white': isActivePath('/admin/agency') }">
-          <span class="material-icons">groups</span>
-          Agency
+           class="flex items-center py-3 rounded-lg transition-colors hover:text-[#1952B3]"
+           [ngClass]="{ '!bg-[#1952B3] !text-white border-l-4 border-[#1952B3]': isActivePath('/admin/agency') }"
+           [style.borderLeftWidth]="isActivePath('/admin/agency') ? '4px' : '0'"
+           [style.borderLeftColor]="isActivePath('/admin/agency') ? '#1952B3' : 'transparent'">
+          <span class="pl-6 flex items-center gap-3 w-full">
+            <span class="material-icons">groups</span>
+            Agency
+          </span>
         </a>
       </li>
       <li>
         <a routerLink="/admin/category"
-           class="flex items-center gap-3 px-6 py-3 rounded-lg transition-colors hover:text-[#1952B3]"
-           [ngClass]="{ '!bg-[#1952B3] !text-white': isActivePath('/admin/category') }">
-          <span class="material-icons">category</span>
-          Category
+           class="flex items-center py-3 rounded-lg transition-colors hover:text-[#1952B3]"
+           [ngClass]="{ '!bg-[#1952B3] !text-white border-l-4 border-[#1952B3]': isActivePath('/admin/category') }"
+           [style.borderLeftWidth]="isActivePath('/admin/category') ? '4px' : '0'"
+           [style.borderLeftColor]="isActivePath('/admin/category') ? '#1952B3' : 'transparent'">
+          <span class="pl-6 flex items-center gap-3 w-full">
+            <span class="material-icons">category</span>
+            Category
+          </span>
         </a>
       </li>
       <li>
         <a routerLink="/admin/payment-history"
-           class="flex items-center gap-3 px-6 py-3 rounded-lg transition-colors hover:text-[#1952B3]"
-           [ngClass]="{ '!bg-[#1952B3] !text-white': isActivePath('/admin/payment-history') }">
-          <span class="material-icons">history</span>
-          Payment History
+           class="flex items-center py-3 rounded-lg transition-colors hover:text-[#1952B3]"
+           [ngClass]="{ '!bg-[#1952B3] !text-white border-l-4 border-[#1952B3]': isActivePath('/admin/payment-history') }"
+           [style.borderLeftWidth]="isActivePath('/admin/payment-history') ? '4px' : '0'"
+           [style.borderLeftColor]="isActivePath('/admin/payment-history') ? '#1952B3' : 'transparent'">
+          <span class="pl-6 flex items-center gap-3 w-full">
+            <span class="material-icons">history</span>
+            Payment History
+          </span>
         </a>
       </li>
     </ul>
     <div class="border-t mt-4 pt-4">
       <a routerLink="/admin/settings"
-         class="flex items-center gap-3 px-6 py-3 rounded-lg transition-colors hover:text-[#1952B3]"
-         [ngClass]="{ '!bg-[#1952B3] !text-white': isActivePath('/admin/settings') }">
-        <span class="material-icons">settings</span>
-        Settings
+         class="flex items-center py-3 rounded-lg transition-colors hover:text-[#1952B3]"
+         [ngClass]="{ '!bg-[#1952B3] !text-white border-l-4 border-[#1952B3]': isActivePath('/admin/settings') }"
+         [style.borderLeftWidth]="isActivePath('/admin/settings') ? '4px' : '0'"
+         [style.borderLeftColor]="isActivePath('/admin/settings') ? '#1952B3' : 'transparent'">
+        <span class="pl-6 flex items-center gap-3 w-full">
+          <span class="material-icons">settings</span>
+          Settings
+        </span>
       </a>
       <a routerLink="/admin/logout"
-         class="flex items-center gap-3 px-6 py-3 rounded-lg transition-colors hover:text-[#1952B3]"
-         [ngClass]="{ '!bg-[#1952B3] !text-white': isActivePath('/admin/logout') }">
-        <span class="material-icons">logout</span>
-        Logout
+         class="flex items-center py-3 rounded-lg transition-colors hover:text-[#1952B3]"
+         [ngClass]="{ '!bg-[#1952B3] !text-white border-l-4 border-[#1952B3]': isActivePath('/admin/logout') }"
+         [style.borderLeftWidth]="isActivePath('/admin/logout') ? '4px' : '0'"
+         [style.borderLeftColor]="isActivePath('/admin/logout') ? '#1952B3' : 'transparent'">
+        <span class="pl-6 flex items-center gap-3 w-full">
+          <span class="material-icons">logout</span>
+          Logout
+        </span>
       </a>
     </div>
   </div>

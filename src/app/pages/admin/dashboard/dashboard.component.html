@@ -1,13 +1,14 @@
+
 <div class="p-4 bg-gray-50 min-h-screen">
   <!-- Title Header -->
   <app-title-header [title]="'Dashboard'" [subtitle]="'Dashboard'" />
 
   <!-- Stat Cards -->
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-    <app-stat-card icon="groups" iconColor="text-purple-500" label="Total Agency" value="40,689" change="8.5%" changeType="up" />
-    <app-stat-card icon="person" iconColor="text-blue-500" label="Total Provider" value="10,293" change="1.2%" changeType="up" />
-    <app-stat-card icon="account_balance_wallet" iconColor="text-yellow-500" label="Total Consumers" value="$89,000" change="4.3%" changeType="down" />
-    <app-stat-card icon="remove_circle" iconColor="text-red-400" label="Deactivate Request" value="2040" change="1.8%" changeType="up" />
+    <app-stat-card iconType="group" iconBg="#E6E6FA" label="Total Agency" value="40,689" change="8.5%" changeType="up" />
+    <app-stat-card iconType="provider" iconBg="#FFF7E0" label="Total Provider" value="10,293" change="1.2%" changeType="up" />
+    <app-stat-card iconType="graph" iconBg="#E6FAF3" label="Total Consumers" value="$89,000" change="4.3%" changeType="down" />
+    <app-stat-card iconType="clock" iconBg="#FFEFE6" label="Deactivate Request" value="2040" change="1.8%" changeType="up" />
   </div>
 
   <!-- Payment Details Chart -->
