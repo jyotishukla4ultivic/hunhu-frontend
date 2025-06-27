@@ -13,6 +13,6 @@ export class SidebarComponent {
   constructor(public router: Router) {}
 
   isActivePath(path: string): boolean {
-    return this.router.url.startsWith(path);
+    return this.router.url === path || this.router.url.startsWith(path + '/');
   }
 }
