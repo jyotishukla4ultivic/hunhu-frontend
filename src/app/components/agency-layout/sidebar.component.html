@@ -1,0 +1,89 @@
+<nav class="bg-white h-full shadow-md flex flex-col">
+  <div class="pt-6 pr-10 pb-6 pl-6 font-bold text-xl text-[#8280FF]">Yours Logo</div>
+  <div class="px-6">
+    <ul>
+      <li>
+        <a routerLink="/agency/dashboard"
+           class="flex items-center py-3 rounded-lg transition-colors hover:text-[#8280FF]"
+           [ngClass]="{ '!bg-[#8280FF] !text-white border-l-4 border-[#8280FF]': isActivePath('/agency/dashboard') }"
+           [style.borderLeftWidth]="isActivePath('/agency/dashboard') ? '4px' : '0'"
+           [style.borderLeftColor]="isActivePath('/agency/dashboard') ? '#8280FF' : 'transparent'">
+          <span class="pl-6 flex items-center gap-3 w-full">
+            <span class="material-icons">dashboard</span>
+            Dashboard
+          </span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/agency/providers"
+           class="flex items-center py-3 rounded-lg transition-colors hover:text-[#8280FF]"
+           [ngClass]="{ '!bg-[#8280FF] !text-white border-l-4 border-[#8280FF]': isActivePath('/agency/providers') }"
+           [style.borderLeftWidth]="isActivePath('/agency/providers') ? '4px' : '0'"
+           [style.borderLeftColor]="isActivePath('/agency/providers') ? '#8280FF' : 'transparent'">
+          <span class="pl-6 flex items-center gap-3 w-full">
+            <span class="material-icons">groups</span>
+            Providers
+          </span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/agency/appointments"
+           class="flex items-center py-3 rounded-lg transition-colors hover:text-[#8280FF]"
+           [ngClass]="{ '!bg-[#8280FF] !text-white border-l-4 border-[#8280FF]': isActivePath('/agency/appointments') }"
+           [style.borderLeftWidth]="isActivePath('/agency/appointments') ? '4px' : '0'"
+           [style.borderLeftColor]="isActivePath('/agency/appointments') ? '#8280FF' : 'transparent'">
+          <span class="pl-6 flex items-center gap-3 w-full">
+            <span class="material-icons">event</span>
+            Appointments
+          </span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/agency/disputes"
+           class="flex items-center py-3 rounded-lg transition-colors hover:text-[#8280FF]"
+           [ngClass]="{ '!bg-[#8280FF] !text-white border-l-4 border-[#8280FF]': isActivePath('/agency/disputes') }"
+           [style.borderLeftWidth]="isActivePath('/agency/disputes') ? '4px' : '0'"
+           [style.borderLeftColor]="isActivePath('/agency/disputes') ? '#8280FF' : 'transparent'">
+          <span class="pl-6 flex items-center gap-3 w-full">
+            <span class="material-icons">gavel</span>
+            Disputes
+          </span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/agency/payment-history"
+           class="flex items-center py-3 rounded-lg transition-colors hover:text-[#8280FF]"
+           [ngClass]="{ '!bg-[#8280FF] !text-white border-l-4 border-[#8280FF]': isActivePath('/agency/payment-history') }"
+           [style.borderLeftWidth]="isActivePath('/agency/payment-history') ? '4px' : '0'"
+           [style.borderLeftColor]="isActivePath('/agency/payment-history') ? '#8280FF' : 'transparent'">
+          <span class="pl-6 flex items-center gap-3 w-full">
+            <span class="material-icons">history</span>
+            Payment History
+          </span>
+        </a>
+      </li>
+    </ul>
+    <div class="border-t mt-4 pt-4">
+      <a routerLink="/agency/settings"
+         class="flex items-center py-3 rounded-lg transition-colors hover:text-[#8280FF]"
+         [ngClass]="{ '!bg-[#8280FF] !text-white border-l-4 border-[#8280FF]': isActivePath('/agency/settings') }"
+         [style.borderLeftWidth]="isActivePath('/agency/settings') ? '4px' : '0'"
+         [style.borderLeftColor]="isActivePath('/agency/settings') ? '#8280FF' : 'transparent'">
+        <span class="pl-6 flex items-center gap-3 w-full">
+          <span class="material-icons">settings</span>
+          Settings
+        </span>
+      </a>
+      <a routerLink="/agency/logout"
+         class="flex items-center py-3 rounded-lg transition-colors hover:text-[#8280FF]"
+         [ngClass]="{ '!bg-[#8280FF] !text-white border-l-4 border-[#8280FF]': isActivePath('/agency/logout') }"
+         [style.borderLeftWidth]="isActivePath('/agency/logout') ? '4px' : '0'"
+         [style.borderLeftColor]="isActivePath('/agency/logout') ? '#8280FF' : 'transparent'">
+        <span class="pl-6 flex items-center gap-3 w-full">
+          <span class="material-icons">logout</span>
+          Logout
+        </span>
+      </a>
+    </div>
+  </div>
+</nav> 

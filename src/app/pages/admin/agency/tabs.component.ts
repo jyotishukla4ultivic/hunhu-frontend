@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgClass, CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tabs',
@@ -30,15 +31,15 @@ import { NgClass, CommonModule } from '@angular/common';
             <div class="bg-white rounded-xl border border-[#E0E7EF] p-6">
               <div class="font-bold text-base mb-4">BASIC INFORMATION</div>
               <div class="flex flex-col gap-2 text-sm text-gray-700">
-                <div class="flex justify-between"><span>Address</span><span>122, Makarna Gandhi Road, Aryanagar,Indore High Rd</span></div>
-                <div class="flex justify-between"><span>City</span><span>Chennai</span></div>
-                <div class="flex justify-between"><span>Country</span><span>India</span></div>
-                <div class="flex justify-between"><span>Phone Number</span><span>0000-00-0000</span></div>
+                <div class="flex justify-between"><span>Address</span><span>{{selectedProvider?.address || '122, Makarna Gandhi Road, Aryanagar,Indore High Rd'}}</span></div>
+                <div class="flex justify-between"><span>City</span><span>{{selectedProvider?.city || 'Chennai'}}</span></div>
+                <div class="flex justify-between"><span>Country</span><span>{{selectedProvider?.country || 'India'}}</span></div>
+                <div class="flex justify-between"><span>Phone Number</span><span>{{selectedProvider?.mobile || '0000-00-0000'}}</span></div>
               </div>
             </div>
             <div class="bg-white rounded-xl border border-[#E0E7EF] p-6">
               <div class="font-bold text-base mb-2">BIO</div>
-              <div class="text-sm text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam euismod, urna eu tincidunt consectetur, nisi nisl aliquam nunc, eget aliquam massa nisl quis neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</div>
+              <div class="text-sm text-gray-600">{{selectedProvider?.bio || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam euismod, urna eu tincidunt consectetur, nisi nisl aliquam nunc, eget aliquam massa nisl quis neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.'}}</div>
             </div>
           </div>
           <!-- Right: Reviews List -->
@@ -105,7 +106,7 @@ import { NgClass, CommonModule } from '@angular/common';
                     <td class="py-3 px-3"><input type="checkbox" /></td>
                     <td class="py-3 px-3 flex items-center gap-2">
                       <img [src]="provider.avatar" class="w-8 h-8 rounded-full object-cover border border-[#E0E7EF]" />
-                      <span class="font-medium text-gray-900">{{provider.name}}</span>
+                      <span class="font-medium text-gray-900 cursor-pointer hover:underline" (click)="goToProviderDetail(provider)">{{provider.name}}</span>
                     </td>
                     <td class="py-3 px-3">{{provider.joinDate}}</td>
                     <td class="py-3 px-3">{{provider.mobile}}</td>
@@ -152,15 +153,24 @@ export class TabsComponent {
     { name: 'Arlene McCoy', time: '1 week ago', stars: 5, avatar: 'https://randomuser.me/api/portraits/women/6.jpg', text: 'Ase godat, arcu in elemi justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum eget, arcu in elemi justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum eget, arcu in elemi justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam d' },
   ];
   providers = [
-    { name: 'Balaji Nani', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 41, rating: 5, avatar: 'https://randomuser.me/api/portraits/men/7.jpg' },
-    { name: 'Krithya Menon', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 35, rating: 4, avatar: 'https://randomuser.me/api/portraits/women/8.jpg' },
-    { name: 'Nishant Goyal', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 29, rating: 5, avatar: 'https://randomuser.me/api/portraits/men/9.jpg' },
-    { name: 'Neeru Kapoor', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 25, rating: 4, avatar: 'https://randomuser.me/api/portraits/women/10.jpg' },
-    { name: 'Neepa Bagchi', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 31, rating: 5, avatar: 'https://randomuser.me/api/portraits/women/11.jpg' },
-    { name: 'Monica Patel', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 36, rating: 4, avatar: 'https://randomuser.me/api/portraits/women/12.jpg' },
-    { name: 'Himanshu', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 39, rating: 5, avatar: 'https://randomuser.me/api/portraits/men/13.jpg' },
-    { name: 'Ramesh', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 32, rating: 4, avatar: 'https://randomuser.me/api/portraits/men/14.jpg' },
-    { name: 'Pankaj Pandit', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 35, rating: 5, avatar: 'https://randomuser.me/api/portraits/men/15.jpg' },
-    { name: 'Priya Kumari', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 37, rating: 4, avatar: 'https://randomuser.me/api/portraits/women/16.jpg' },
+    { id: 1, name: 'Balaji Nani', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 41, rating: 5, avatar: 'https://randomuser.me/api/portraits/men/7.jpg', address: '122, Makarna Gandhi Road, Aryanagar,Indore High Rd', city: 'Chennai', country: 'India', bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam euismod, urna eu tincidunt consectetur, nisi nisl aliquam nunc, eget aliquam massa nisl quis neque.' },
+    { id: 2, name: 'Krithya Menon', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 35, rating: 4, avatar: 'https://randomuser.me/api/portraits/women/8.jpg', address: '221B Baker Street', city: 'Mumbai', country: 'India', bio: 'Krithya is a fitness expert with 10 years of experience.' },
+    { id: 3, name: 'Nishant Goyal', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 29, rating: 5, avatar: 'https://randomuser.me/api/portraits/men/9.jpg', address: '45, Park Avenue', city: 'Delhi', country: 'India', bio: 'Nishant specializes in yoga and wellness.' },
+    { id: 4, name: 'Neeru Kapoor', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 25, rating: 4, avatar: 'https://randomuser.me/api/portraits/women/10.jpg', address: '78, Lake View', city: 'Kolkata', country: 'India', bio: 'Neeru is a spiritual healer.' },
+    { id: 5, name: 'Neepa Bagchi', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 31, rating: 5, avatar: 'https://randomuser.me/api/portraits/women/11.jpg', address: '12, MG Road', city: 'Pune', country: 'India', bio: 'Neepa is a nutritionist.' },
+    { id: 6, name: 'Monica Patel', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 36, rating: 4, avatar: 'https://randomuser.me/api/portraits/women/12.jpg', address: '34, Hill Top', city: 'Ahmedabad', country: 'India', bio: 'Monica is a physiotherapist.' },
+    { id: 7, name: 'Himanshu', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 39, rating: 5, avatar: 'https://randomuser.me/api/portraits/men/13.jpg', address: '56, River Side', city: 'Bangalore', country: 'India', bio: 'Himanshu is a meditation coach.' },
+    { id: 8, name: 'Ramesh', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 32, rating: 4, avatar: 'https://randomuser.me/api/portraits/men/14.jpg', address: '90, Sun City', city: 'Hyderabad', country: 'India', bio: 'Ramesh is a life coach.' },
+    { id: 9, name: 'Pankaj Pandit', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 35, rating: 5, avatar: 'https://randomuser.me/api/portraits/men/15.jpg', address: '11, Lotus Lane', city: 'Chandigarh', country: 'India', bio: 'Pankaj is a motivational speaker.' },
+    { id: 10, name: 'Priya Kumari', joinDate: '10 March, 2023', mobile: '00 000 00000', status: 'Active', consumers: 37, rating: 4, avatar: 'https://randomuser.me/api/portraits/women/16.jpg', address: '88, Green Park', city: 'Jaipur', country: 'India', bio: 'Priya is a dietician.' },
   ];
+  @Input() agencyId!: string;
+  @Input() providerId?: string;
+  constructor(private router: Router) {}
+  get selectedProvider() {
+    return this.providers.find(p => String(p.id) === this.providerId);
+  }
+  goToProviderDetail(provider: any) {
+    this.router.navigate(['/admin/agency', this.agencyId, 'agency-provider', provider.id]);
+  }
 } 

@@ -9,9 +9,14 @@ import { SettingsComponent } from './pages/admin/settings/settings.component';
 import { LogoutComponent } from './pages/admin/logout/logout.component';
 import { AgencyDetailComponent } from './pages/admin/agency/agency-detail.component';
 import { AddAgencyComponent } from './pages/admin/agency/add-agency.component';
+import { AgencyProviderDetailComponent } from './pages/admin/agency/agency-provider-detail.component';
+import { AgencySignin } from './pages/agency-signin/agency-signin';
+import { AgencyLayoutComponent } from './components/agency-layout/agency-layout.component';
+import { AgencyDashboardComponent } from './pages/agency/dashboard.component';
 
 export const routes: Routes = [
   { path: 'signin', component: Signin },
+  { path: 'agency/signin', component: AgencySignin },
   {
     path: 'admin',
     component: AdminLayoutComponent,
@@ -24,6 +29,15 @@ export const routes: Routes = [
       { path: 'payment-history', component: PaymentHistoryComponent },
       { path: 'settings', component: SettingsComponent },
       { path: 'logout', component: LogoutComponent },
+      { path: 'agency/:agencyId/agency-provider/:providerId', component: AgencyProviderDetailComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+    ]
+  },
+  {
+    path: 'agency',
+    component: AgencyLayoutComponent,
+    children: [
+      { path: 'dashboard', component: AgencyDashboardComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },

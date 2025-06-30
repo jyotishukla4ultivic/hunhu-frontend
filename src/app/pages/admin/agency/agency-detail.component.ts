@@ -50,7 +50,7 @@ import { TabsComponent } from './tabs.component';
            
             <!-- Right tab content -->
             <div class="flex-1 min-w-0">
-              <app-tabs></app-tabs>
+              <app-tabs [agencyId]="agencyId"></app-tabs>
             </div>
           </div>
         </div>
@@ -59,8 +59,8 @@ import { TabsComponent } from './tabs.component';
   `
 })
 export class AgencyDetailComponent {
-  agencyId: string | null = null;
+  agencyId: string;
   constructor(private route: ActivatedRoute) {
-    this.agencyId = this.route.snapshot.paramMap.get('id');
+    this.agencyId = this.route.snapshot.paramMap.get('id') || '';
   }
 } 
