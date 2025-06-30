@@ -158,7 +158,7 @@ import { FormsModule } from '@angular/forms';
             <!-- Theme Color Customization -->
             <div class="bg-white rounded-xl border border-[#E0E7EF] p-6 flex flex-col items-center">
               <img src="/assets/icons/emptyStateImage.svg" class="w-40 h-24 object-contain mb-2" />
-              <div class="w-12 h-12 rounded-full bg-[#E0E7EF] flex items-center justify-center text-2xl font-bold text-white absolute -mt-16 ml-32">J</div>
+            
               <div class="font-semibold text-base mb-1">Customize Theme Colour</div>
               <div class="text-xs text-gray-400 text-center mb-2">Customize your dashboard easily with different theme colours. Pick your brand and favourite to match your style and work needs.</div>
               <button class="px-4 py-2 rounded-lg bg-[#1952B3] text-white font-semibold text-sm">Customize Colour</button>
