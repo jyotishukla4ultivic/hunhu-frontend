@@ -15,16 +15,70 @@
         </a>
       </li>
       <li>
-        <a routerLink="/agency/providers"
-           class="flex items-center py-3 rounded-lg transition-colors hover:text-[#8280FF]"
-           [ngClass]="{ '!bg-[#8280FF] !text-white border-l-4 border-[#8280FF]': isActivePath('/agency/providers') }"
-           [style.borderLeftWidth]="isActivePath('/agency/providers') ? '4px' : '0'"
-           [style.borderLeftColor]="isActivePath('/agency/providers') ? '#8280FF' : 'transparent'">
+      
+        <div
+          class="flex items-center py-3 rounded-lg transition-colors cursor-pointer"
+          [ngClass]="{ 'bg-[#F5F8FF] text-[#8280FF] font-semibold': showProvidersSubmenu }"
+          (click)="toggleProvidersMenu()"
+        >
           <span class="pl-6 flex items-center gap-3 w-full">
             <span class="material-icons">groups</span>
             Providers
+            <span class="ml-auto material-icons text-base transition-transform duration-200"
+              [ngStyle]="{ 'transform': showProvidersSubmenu ? 'rotate(180deg)' : 'rotate(0deg)' }"
+            >expand_more</span>
           </span>
-        </a>
+        </div>
+        <!-- Submenu for Providers -->
+        <ul
+          *ngIf="showProvidersSubmenu"
+          class="ml-12 mt-1 flex flex-col gap-1  rounded-md py-2"
+        >
+          <li>
+            <a
+              routerLink="/agency/providers/my-providers"
+              class="block py-2 px-3 rounded-md  transition-colors text-sm"
+              [ngClass]="{
+                'bg-[#E0E7FF] text-[#8280FF] font-semibold': isActivePath('/agency/providers/my-providers')
+              }"
+            >
+              My Providers
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/agency/providers/explore"
+              class="block py-2 px-3  transition-colors text-sm"
+              [ngClass]="{
+                'bg-[#F3F3FF] text-[#8280FF] font-semibold': isActivePath('/agency/providers/explore')
+              }"
+            >
+              Explore providers
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/agency/providers/agency-request"
+              class="block py-2 px-3  transition-colors text-sm"
+              [ngClass]="{
+                'bg-[#E0E7FF] text-[#8280FF] font-semibold': isActivePath('/agency/providers/agency-request')
+              }"
+            >
+              Agency Request
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/agency/providers/customize-categories"
+              class="block py-2 px-3 rounded-full transition-colors text-sm"
+              [ngClass]="{
+                'bg-[#E0E7FF] text-[#8280FF] font-semibold': isActivePath('/agency/providers/customize-categories')
+              }"
+            >
+              Customize Categories
+            </a>
+          </li>
+        </ul>
       </li>
       <li>
         <a routerLink="/agency/appointments"

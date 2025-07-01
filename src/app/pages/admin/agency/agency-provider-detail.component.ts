@@ -7,155 +7,188 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="relative min-h-screen bg-[#F5F8FF] pb-12">
+    <div class="relative min-h-screen  pb-12">
+      <!-- Header OUTSIDE the stacking context -->
+      <div class="w-full max-w-7xl mx-auto px-4">
+        <div class="flex items-center justify-between py-6">
+          <div class="text-2xl font-bold text-gray-800">Agency</div>
+    
+        </div>
+      </div>
+      <!-- Main content with blue banner and card -->
       <div class="relative w-full max-w-7xl mx-auto px-4">
         <!-- Blue banner -->
         <div class="h-64 bg-[#D9E8FF] rounded-2xl w-full absolute top-0 left-0 z-0"></div>
         <!-- White card, floating above banner -->
         <div class="relative z-10 top-9">
-          <div class="bg-white rounded-xl shadow p-8 flex flex-col gap-6">
-            <div class=" items-center gap-6 mb-6">
-              <img [src]="selectedProvider?.avatar || 'https://randomuser.me/api/portraits/men/32.jpg'" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow" alt="Avatar" />
-              <div class="flex flex-col gap-1 flex-1">
-                <div class="flex items-center gap-2">
-                  <h1 class="text-2xl font-bold">{{selectedProvider?.name || 'Provider Name'}}</h1>
-                  <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-semibold">Meditation</span>
-                </div>
-                <div class="flex items-center gap-2 text-gray-500 text-sm">
-                  <span>{{ providerUsername }}</span>
-                  <span>&bull;</span>
-                  <span>{{selectedProvider?.email || 'nithyamenon@gmail.com'}}</span>
-                </div>
-                <div class="flex items-center gap-4 mt-1 flex-wrap">
-                  <span class="flex items-center gap-1 text-[#FFD600] text-sm font-semibold"><span class="material-icons text-base">star</span>4.8</span>
-                  <span class="text-gray-400 text-xs">232 reviews</span>
-                  <span class="text-gray-400 text-xs">223 consumer</span>
-                  <span class="text-gray-400 text-xs">10 service</span>
-                </div>
-              </div>
-            </div>
-            <!-- Tabs -->
-            <div class="flex border-b border-gray-200 mb-6">
-              <button (click)="selectedTab = 0" class="px-6 py-3 -mb-px text-base font-semibold focus:outline-none border-b-2 transition-all duration-200" [ngClass]="selectedTab === 0 ? 'border-[#1952B3] text-[#1952B3] bg-white' : 'border-transparent text-gray-500'">About & Review</button>
-              <button (click)="selectedTab = 1" class="px-6 py-3 -mb-px text-base font-semibold focus:outline-none border-b-2 transition-all duration-200" [ngClass]="selectedTab === 1 ? 'border-[#1952B3] text-[#1952B3] bg-white' : 'border-transparent text-gray-500'">Services</button>
-            </div>
-            <!-- Tab Content -->
-            <ng-container *ngIf="selectedTab === 0">
-              <!-- About Provider -->
-              <div class="mb-8">
-                <div class="font-bold text-base mb-2">ABOUT PROVIDER</div>
-                <div class="text-sm text-gray-600">{{selectedProvider?.bio || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'}}</div>
-              </div>
-              <!-- Service Rating -->
-              <div class="mb-8">
-                <div class="font-bold text-base mb-2">Service Rating</div>
-                <div class="flex items-center gap-8 mb-4">
-                  <div class="flex flex-col items-center justify-center">
-                    <span class="text-4xl font-bold">4.8</span>
-                    <div class="flex items-center gap-1 mt-1">
-                      <span class="material-icons text-[#FFD600] text-xl">star</span>
-                      <span class="material-icons text-[#FFD600] text-xl">star</span>
-                      <span class="material-icons text-[#FFD600] text-xl">star</span>
-                      <span class="material-icons text-[#FFD600] text-xl">star</span>
-                      <span class="material-icons text-[#FFD600] text-xl">star_half</span>
-                    </div>
-                    <span class="text-xs text-gray-400 mt-1">Course Rating</span>
-                  </div>
-                  <div class="flex-1">
-                    <div class="flex items-center gap-2 mb-1" *ngFor="let r of ratings">
-                      <span class="text-xs text-gray-600 w-20">{{r.label}}</span>
-                      <div class="flex-1 h-2 bg-gray-200 rounded">
-                        <div class="h-2 rounded bg-[#1952B3]" [style.width.%]="r.percent"></div>
-                      </div>
-                      <span class="text-xs text-gray-400 w-8 text-right">{{r.percent}}%</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Consumer Feedback -->
-              <div>
-                <div class="font-bold text-base mb-2">Consumer Feedback</div>
-                <div class="flex items-center justify-end mb-4">
-                  <select class="border border-[#E0E7EF] rounded px-3 py-1 text-sm text-gray-700">
-                    <option>5 Star Rating</option>
-                    <option>4 Star Rating</option>
-                    <option>3 Star Rating</option>
-                  </select>
-                </div>
-                <div class="flex flex-col gap-6">
-                  <div *ngFor="let review of reviews" class="flex gap-4">
-                    <img [src]="review.avatar" class="w-10 h-10 rounded-full object-cover" />
-                    <div class="flex-1">
-                      <div class="flex items-center gap-2 mb-1">
-                        <span class="font-semibold text-sm text-gray-900">{{review.name}}</span>
-                        <span class="text-xs text-gray-400">{{review.time}}</span>
-                      </div>
-                      <div class="flex items-center gap-1 mb-1">
-                        <ng-container *ngFor="let s of [].constructor(review.stars)">
-                          <span class="material-icons text-[#FFD600] text-base">star</span>
-                        </ng-container>
-                      </div>
-                      <div class="text-sm text-gray-700">{{review.text}}</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex justify-center mt-6">
-                  <button class="px-5 py-2 rounded-lg bg-[#1952B3] text-white font-semibold text-sm transition hover:bg-[#143e7d]">Load More</button>
-                </div>
-              </div>
-            </ng-container>
-            <ng-container *ngIf="selectedTab === 1">
-              <!-- Services Tab Content -->
-              <div>
-              <div class="font-bold text-base mb-4">Services</div>
-  <div class="flex flex-col gap-6">
-    <div *ngFor="let row of servicesRows" class="overflow-x-auto w-full scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
-      <div class="flex gap-6 px-1">
-        <div *ngFor="let service of row" class="bg-white rounded-xl shadow border border-[#E0E7EF] flex-shrink-0 w-72 relative overflow-hidden">
-          <!-- Image with badge -->
-          <div class="relative">
-            <img [src]="service.image" class="w-full h-32 object-cover rounded-t-xl" />
-            <span class="absolute top-2 left-2 px-3 py-1 rounded-full text-xs font-semibold text-white"
-              [ngClass]="{
-                'bg-orange-500': service.category === 'MEDITATION',
-                'bg-green-600': service.category === 'SPIRITUAL',
-                'bg-blue-600': service.category === 'HEALING',
-                'bg-yellow-600': service.category === 'NATURE SPIRITUAL',
-                'bg-pink-600': service.category === 'YOGA',
-                'bg-gray-500': !['MEDITATION','SPIRITUAL','HEALING','NATURE SPIRITUAL','YOGA'].includes(service.category)
-              }">
-              {{service.category}}
-            </span>
-          </div>
-          <!-- Title + Price -->
-          <div class="flex items-center justify-between px-4 pt-3">
-            <div class="font-semibold text-base truncate">{{service.title}}</div>
-            <div class="text-[#FF5722] font-bold text-base">{{service.price}}</div>
-          </div>
-          <!-- Description -->
-          <div class="text-sm text-gray-600 px-4 pt-1 pb-2 truncate">{{service.description}}</div>
-          <!-- Footer -->
-          <div class="flex items-center justify-between px-4 pb-3 mt-auto">
-            <div class="flex items-center gap-1 text-xs text-gray-400">
-              <span class="material-icons text-base align-middle">groups</span>
-              {{service.providers}} Providers
-            </div>
-            <div class="flex items-center gap-1 text-xs text-gray-400">
-              <span class="material-icons text-base align-middle text-[#FFD600]">star</span>
-              5.0
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+          <div class="bg-white rounded-xl shadow  flex flex-col gap-6">
+            <div class=" items-center gap-6 ">
 
-              </div>
-            </ng-container>
-          </div>
-        </div>
-      </div>
-    </div>
+           <!-- Header container with background image -->
+           <div class="relative w-full h-[300px] rounded-xl overflow-hidden">
+             <!-- Background image -->
+             <img 
+               src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d" 
+               alt="Background" 
+               class="w-full h-full object-cover"
+             />
+
+             <!-- Precisely positioned avatar -->
+             <img 
+               [src]="selectedProvider?.avatar || 'https://randomuser.me/api/portraits/women/44.jpg'" 
+               alt="Avatar"
+               class="rounded-full object-cover shadow-md"
+               style="
+                 position: absolute;
+                 width: 190.49806213378906px;
+                 height: 190.49806213378906px;
+                 top: 63px;
+                 left: 30px;
+                 border: 1px solid white;
+               "
+             />
+           </div>
+           <!-- Wrap all content below header in a div with px-8 -->
+           <div class="px-8">
+             <div class="flex flex-col gap-1 flex-1 pt-[30px]">
+               <div class="flex items-center gap-2">
+                 <h1 class="text-2xl font-bold">{{selectedProvider?.name || 'Provider Name'}}</h1>
+                 <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-semibold">Meditation</span>
+               </div>
+               <div class="flex items-center gap-2 text-gray-500 text-sm">
+                 <span>{{ providerUsername }}</span>
+                 <span>&bull;</span>
+                 <span>{{selectedProvider?.email || 'nithyamenon@gmail.com'}}</span>
+               </div>
+               <div class="flex items-center gap-4 mt-1 flex-wrap">
+                 <span class="flex items-center gap-1 text-[#FFD600] text-sm font-semibold"><span class="material-icons text-base">star</span>4.8</span>
+                 <span class="text-gray-400 text-xs">232 reviews</span>
+                 <span class="text-gray-400 text-xs">223 consumer</span>
+                 <span class="text-gray-400 text-xs">10 service</span>
+               </div>
+             </div>
+             <!-- Tabs -->
+             <div class="flex border-b border-gray-200 mb-6">
+               <button (click)="selectedTab = 0" class="px-6 py-3 -mb-px text-base font-semibold focus:outline-none border-b-2 transition-all duration-200" [ngClass]="selectedTab === 0 ? 'border-[#1952B3] text-[#1952B3] bg-white' : 'border-transparent text-gray-500'">About & Review</button>
+               <button (click)="selectedTab = 1" class="px-6 py-3 -mb-px text-base font-semibold focus:outline-none border-b-2 transition-all duration-200" [ngClass]="selectedTab === 1 ? 'border-[#1952B3] text-[#1952B3] bg-white' : 'border-transparent text-gray-500'">Services</button>
+             </div>
+             <!-- Tab Content -->
+             <ng-container *ngIf="selectedTab === 0">
+               <!-- About Provider -->
+               <div class="mb-8">
+                 <div class="font-bold text-base mb-2">ABOUT PROVIDER</div>
+                 <div class="text-sm text-gray-600">{{selectedProvider?.bio || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'}}</div>
+               </div>
+               <!-- Service Rating -->
+               <div class="mb-8">
+                 <div class="font-bold text-base mb-2">Service Rating</div>
+                 <div class="flex items-center gap-8 mb-4">
+                   <div class="flex flex-col items-center justify-center">
+                     <span class="text-4xl font-bold">4.8</span>
+                     <div class="flex items-center gap-1 mt-1">
+                       <span class="material-icons text-[#FFD600] text-xl">star</span>
+                       <span class="material-icons text-[#FFD600] text-xl">star</span>
+                       <span class="material-icons text-[#FFD600] text-xl">star</span>
+                       <span class="material-icons text-[#FFD600] text-xl">star</span>
+                       <span class="material-icons text-[#FFD600] text-xl">star_half</span>
+                     </div>
+                     <span class="text-xs text-gray-400 mt-1">Course Rating</span>
+                   </div>
+                   <div class="flex-1">
+                     <div class="flex items-center gap-2 mb-1" *ngFor="let r of ratings">
+                       <span class="text-xs text-gray-600 w-20">{{r.label}}</span>
+                       <div class="flex-1 h-2 bg-gray-200 rounded">
+                         <div class="h-2 rounded bg-[#1952B3]" [style.width.%]="r.percent"></div>
+                       </div>
+                       <span class="text-xs text-gray-400 w-8 text-right">{{r.percent}}%</span>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+               <!-- Consumer Feedback -->
+               <div>
+                 <div class="font-bold text-base mb-2">Consumer Feedback</div>
+                 <div class="flex items-center justify-end mb-4">
+                   <select class="border border-[#E0E7EF] rounded px-3 py-1 text-sm text-gray-700">
+                     <option>5 Star Rating</option>
+                     <option>4 Star Rating</option>
+                     <option>3 Star Rating</option>
+                   </select>
+                 </div>
+                 <div class="flex flex-col gap-6">
+                   <div *ngFor="let review of reviews" class="flex gap-4">
+                     <img [src]="review.avatar" class="w-10 h-10 rounded-full object-cover" />
+                     <div class="flex-1">
+                       <div class="flex items-center gap-2 mb-1">
+                         <span class="font-semibold text-sm text-gray-900">{{review.name}}</span>
+                         <span class="text-xs text-gray-400">{{review.time}}</span>
+                       </div>
+                       <div class="flex items-center gap-1 mb-1">
+                         <ng-container *ngFor="let s of [].constructor(review.stars)">
+                           <span class="material-icons text-[#FFD600] text-base">star</span>
+                         </ng-container>
+                       </div>
+                       <div class="text-sm text-gray-700">{{review.text}}</div>
+                     </div>
+                   </div>
+                 </div>
+                 <div class="flex justify-center mt-6">
+                   <button class="px-5 py-2 rounded-lg bg-[#1952B3] text-white font-semibold text-sm transition hover:bg-[#143e7d] mb-6">Load More</button>
+                 </div>
+               </div>
+             </ng-container>
+             <ng-container *ngIf="selectedTab === 1">
+               <!-- Services Tab Content -->
+               <div>
+                 <div class="font-bold text-base mb-4">Services</div>
+                 <div class="flex flex-col gap-6">
+                   <div *ngFor="let row of servicesRows" class="overflow-x-auto w-full scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+                     <div class="flex gap-6 px-1">
+                       <div *ngFor="let service of row" class="bg-white rounded-xl shadow border border-[#E0E7EF] flex-shrink-0 w-72 relative overflow-hidden">
+                         <!-- Image with badge -->
+                         <div class="relative">
+                           <img [src]="service.image" class="w-full h-32 object-cover rounded-t-xl" />
+                           <span class="absolute top-2 left-2 px-3 py-1 rounded-full text-xs font-semibold text-white"
+                             [ngClass]="{
+                               'bg-orange-500': service.category === 'MEDITATION',
+                               'bg-green-600': service.category === 'SPIRITUAL',
+                               'bg-blue-600': service.category === 'HEALING',
+                               'bg-yellow-600': service.category === 'NATURE SPIRITUAL',
+                               'bg-pink-600': service.category === 'YOGA',
+                               'bg-gray-500': !['MEDITATION','SPIRITUAL','HEALING','NATURE SPIRITUAL','YOGA'].includes(service.category)
+                             }">
+                             {{service.category}}
+                           </span>
+                         </div>
+                         <!-- Title + Price -->
+                         <div class="flex items-center justify-between px-4 pt-3">
+                           <div class="font-semibold text-base truncate">{{service.title}}</div>
+                           <div class="text-[#FF5722] font-bold text-base">{{service.price}}</div>
+                         </div>
+                         <!-- Description -->
+                         <div class="text-sm text-gray-600 px-4 pt-1 pb-2 truncate">{{service.description}}</div>
+                         <!-- Footer -->
+                         <div class="flex items-center justify-between px-4 pb-3 mt-auto">
+                           <div class="flex items-center gap-1 text-xs text-gray-400">
+                             <span class="material-icons text-base align-middle">groups</span>
+                             {{service.providers}} Providers
+                           </div>
+                           <div class="flex items-center gap-1 text-xs text-gray-400">
+                             <span class="material-icons text-base align-middle text-[#FFD600]">star</span>
+                             5.0
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </ng-container>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
   `
 })
 export class AgencyProviderDetailComponent {

@@ -13,6 +13,13 @@ import { AgencyProviderDetailComponent } from './pages/admin/agency/agency-provi
 import { AgencySignin } from './pages/agency-signin/agency-signin';
 import { AgencyLayoutComponent } from './components/agency-layout/agency-layout.component';
 import { AgencyDashboardComponent } from './pages/agency/dashboard.component';
+import { MyProvidersComponent } from './pages/agency/providers/my-providers.component';
+import { ExploreProvidersComponent } from './pages/agency/providers/explore-providers.component';
+import { AgencyRequestComponent } from './pages/agency/providers/agency-request.component';
+import { CustomizeCategoriesComponent } from './pages/agency/providers/customize-categories.component';
+import { AppointmentsComponent } from './pages/agency/appointments/appointments.component';
+import { DisputesComponent } from './pages/agency/disputes/disputes.component';
+import { Component } from '@angular/core';
 
 export const routes: Routes = [
   { path: 'signin', component: Signin },
@@ -38,6 +45,16 @@ export const routes: Routes = [
     component: AgencyLayoutComponent,
     children: [
       { path: 'dashboard', component: AgencyDashboardComponent },
+      { path: 'providers', redirectTo: 'providers/my-providers', pathMatch: 'full' },
+      { path: 'providers/my-providers', component: MyProvidersComponent },
+      { path: 'providers/explore', component: ExploreProvidersComponent },
+      { path: 'providers/agency-request', component: AgencyRequestComponent },
+      { path: 'providers/customize-categories', component: CustomizeCategoriesComponent },
+      { path: 'appointments', component: AppointmentsComponent },
+      { path: 'disputes', component: DisputesComponent },
+      { path: 'payment-history', component: PaymentHistoryComponent },
+      { path: 'settings', component: SettingsComponent },
+      { path: 'logout', component: LogoutComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
