@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
     <div class="bg-white rounded-xl shadow border border-[#E0E7EF] flex flex-col p-0 overflow-hidden">
       <div class="relative">
         <img [src]="image" class="w-full h-40 object-cover rounded-t-xl" />
-        <div class="absolute left-0 right-0 top-2 flex flex-wrap justify-center gap-1 px-2">
+        <div class="absolute left-0 right-0 top-[8.5rem] flex flex-wrap justify-center gap-1 px-2">
           <ng-container *ngFor="let cat of categories; let i = index">
             <span class="bg-[#F5F8FF] text-[#8280FF] px-2 py-0.5 rounded text-xs font-semibold mb-1">{{cat}}</span>
           </ng-container>

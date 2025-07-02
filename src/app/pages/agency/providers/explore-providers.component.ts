@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-explore-providers',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   template: `
     <div class="min-h-screen  pb-12">
       <div class="mx-auto px-4 pt-8">
@@ -52,7 +53,7 @@ import { CommonModule } from '@angular/common';
                   <span class="text-sm font-semibold text-gray-700 mb-4">Consultation Fee</span>
                   <span class="text-[#6C63FF] font-bold text-base mb-4">Take : {{provider.fee}} (incl.Vat)</span>
                   <span class="text-xs text-gray-500 mb-4">Per Consultation</span>
-                  <button class="ml-auto rounded-lg bg-[#6C63FF] text-white px-8 py-2 text-base font-bold mb-4">View Profile</button>
+                  <button [routerLink]="['/agency/providers/explore', provider.id]" class="ml-auto rounded-lg bg-[#6C63FF] text-white px-8 py-2 text-base font-bold mb-4">View Profile</button>
                
                 </div>
               </div>
@@ -87,6 +88,7 @@ import { CommonModule } from '@angular/common';
 export class ExploreProvidersComponent {
   providers = [
     {
+      id: 1,
       name: 'Joni Arbore',
       image: 'https://randomuser.me/api/portraits/men/32.jpg',
       description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
@@ -99,6 +101,7 @@ export class ExploreProvidersComponent {
       ratingCount: 876
     },
     {
+      id: 2,
       name: 'Provider Name',
       image: 'https://randomuser.me/api/portraits/women/44.jpg',
       description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
@@ -111,6 +114,7 @@ export class ExploreProvidersComponent {
       ratingCount: 876
     },
     {
+      id: 3,
       name: 'Provider Name',
       image: 'https://randomuser.me/api/portraits/women/65.jpg',
       description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
@@ -123,6 +127,7 @@ export class ExploreProvidersComponent {
       ratingCount: 876
     },
     {
+      id: 4,
       name: 'Provider Name',
       image: 'https://randomuser.me/api/portraits/men/65.jpg',
       description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
@@ -135,4 +140,6 @@ export class ExploreProvidersComponent {
       ratingCount: 876
     }
   ];
+
+  constructor(private router: Router) {}
 } 

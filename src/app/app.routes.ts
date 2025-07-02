@@ -19,6 +19,7 @@ import { AgencyRequestComponent } from './pages/agency/providers/agency-request.
 import { CustomizeCategoriesComponent } from './pages/agency/providers/customize-categories.component';
 import { AppointmentsComponent } from './pages/agency/appointments/appointments.component';
 import { DisputesComponent } from './pages/agency/disputes/disputes.component';
+import { ExploreProviderDetailComponent } from './pages/agency/providers/explore-provider-detail.component';
 import { Component } from '@angular/core';
 
 export const routes: Routes = [
@@ -48,6 +49,7 @@ export const routes: Routes = [
       { path: 'providers', redirectTo: 'providers/my-providers', pathMatch: 'full' },
       { path: 'providers/my-providers', component: MyProvidersComponent },
       { path: 'providers/explore', component: ExploreProvidersComponent },
+      { path: 'providers/explore/:id', component: ExploreProviderDetailComponent },
       { path: 'providers/agency-request', component: AgencyRequestComponent },
       { path: 'providers/customize-categories', component: CustomizeCategoriesComponent },
       { path: 'appointments', component: AppointmentsComponent },
