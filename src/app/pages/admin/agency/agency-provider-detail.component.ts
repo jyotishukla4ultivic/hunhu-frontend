@@ -9,14 +9,14 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="relative min-h-screen  pb-12">
       <!-- Header OUTSIDE the stacking context -->
-      <div class="w-full max-w-7xl mx-auto px-4">
+      <div class="w-full max-w-7xl mx-auto ">
         <div class="flex items-center justify-between py-6">
           <div class="text-2xl font-bold text-gray-800">Agency</div>
     
         </div>
       </div>
       <!-- Main content with blue banner and card -->
-      <div class="relative w-full max-w-7xl mx-auto px-4">
+      <div class="relative w-full max-w-7xl mx-auto px-6">
         <!-- Blue banner -->
         <div class="h-64 bg-[#D9E8FF] rounded-2xl w-full absolute top-0 left-0 z-0"></div>
         <!-- White card, floating above banner -->
