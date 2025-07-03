@@ -12,9 +12,9 @@ import { CommonPaginationComponent } from '../../../components/common-components
     <div class="min-h-screen bg-[#F8F8FB] pb-12">
       <!-- Banner/Header -->
       <div class="w-full h-40 bg-[#D9E8FF] rounded-b-2xl"></div>
-      <div class="max-w-5xl mx-auto px-4 pt-0">
+      <div class="w-full px-2 md:px-4 pt-0 flex-1">
         <!-- Single Card for Profile, Tabs, and Tab Content -->
-        <div class="bg-white rounded-xl shadow p-8 -mt-20 mb-8 relative z-10">
+        <div class="bg-white rounded-xl shadow p-4 md:p-8 -mt-20 mb-8 relative z-10 w-full">
           <!-- Profile Row -->
           <div class="flex flex-col md:flex-row items-center gap-8">
             <img [src]="provider?.image" class="w-[8rem] h-[8rem] object-cover rounded-lg border-4 border-white shadow-md" />
@@ -49,8 +49,8 @@ import { CommonPaginationComponent } from '../../../components/common-components
             <!-- Services Carousel (2 horizontally scrollable rows) -->
             <div class="font-bold text-base mb-4">Services</div>
             <div class="flex flex-col gap-6 mb-8">
-              <div *ngFor="let row of servicesRows" class="-mx-4 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
-                <div class="flex gap-6 px-4 flex-nowrap" style="min-width:100%">
+              <div *ngFor="let row of servicesRows" class="-mx-2 md:-mx-4 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+                <div class="flex gap-6 px-2 md:px-4 flex-nowrap" style="min-width:100%">
                   <div *ngFor="let service of row" class="bg-white rounded-xl shadow border border-gray-200 p-4 flex flex-col w-72 flex-shrink-0">
                     <div class="relative">
                       <img [src]="service.image" class="w-full h-32 object-cover rounded-t-xl" />
@@ -142,7 +142,7 @@ import { CommonPaginationComponent } from '../../../components/common-components
             </div>
           </ng-container>
           <ng-container *ngIf="selectedTab === 1">
-            <div class="max-w-4xl ">
+            <div class="w-full">
               <!-- About Agency Card -->
               <div class="bg-white rounded-xl pt-8 mb-8">
                 <div class="font-bold text-base mb-2 text-gray-900">ABOUT AGENCY</div>

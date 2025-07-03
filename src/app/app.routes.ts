@@ -4,7 +4,7 @@ import { AdminLayoutComponent } from './components/admin-layout/admin-layout.com
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { AgencyComponent } from './pages/admin/agency/agency.component';
 import { CategoryComponent } from './pages/admin/category/category.component';
-import { PaymentHistoryComponent } from './pages/admin/payment-history/payment-history.component';
+import { PaymentHistoryComponent } from './pages/agency/payment-history/payment-history.component';
 import { SettingsComponent } from './pages/admin/settings/settings.component';
 import { LogoutComponent } from './pages/admin/logout/logout.component';
 import { AgencyDetailComponent } from './pages/admin/agency/agency-detail.component';
@@ -20,6 +20,7 @@ import { CustomizeCategoriesComponent } from './pages/agency/providers/customize
 import { AppointmentsComponent } from './pages/agency/appointments/appointments.component';
 import { DisputesComponent } from './pages/agency/disputes/disputes.component';
 import { ExploreProviderDetailComponent } from './pages/agency/providers/explore-provider-detail.component';
+import { CrossAgenciesListComponent } from './pages/agency/cross-agencies-list.component';
 import { Component } from '@angular/core';
 
 export const routes: Routes = [
@@ -55,6 +56,7 @@ export const routes: Routes = [
       { path: 'appointments', component: AppointmentsComponent },
       { path: 'disputes', component: DisputesComponent },
       { path: 'payment-history', component: PaymentHistoryComponent },
+      { path: 'cross-agencies', component: CrossAgenciesListComponent },
       { path: 'settings', component: SettingsComponent },
       { path: 'logout', component: LogoutComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }

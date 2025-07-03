@@ -1,8 +1,10 @@
-<div class="flex min-h-screen">
-  <app-agency-sidebar class="w-64"></app-agency-sidebar>
-  <div class="flex-1 flex flex-col">
+<div class="flex min-h-screen bg-[#F8F8FB]">
+  <!-- Sidebar: fixed width on desktop, collapsible on mobile -->
+  <app-agency-sidebar class="w-64 hidden md:block"></app-agency-sidebar>
+  <!-- Optionally, add a mobile sidebar toggle here -->
+  <div class="flex-1 flex flex-col min-w-0">
     <app-agency-header></app-agency-header>
-    <main class="flex-1 bg-gray-50 p-6">
+    <main class="flex-1 p-2 md:p-6 flex flex-col min-w-0">
       <router-outlet></router-outlet>
     </main>
   </div>
