@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TitleHeaderComponent } from '../../../components/common-components/title-header.component';
 
 @Component({
   selector: 'app-disputes',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TitleHeaderComponent],
   template: `
     <div class="bg-[#F8F8FB] min-h-screen py-0 px-0 flex flex-col items-stretch">
+      <div class="px-4 md:px-8 pt-6">
+        <app-title-header title="Disputes" [showHamburger]="true"></app-title-header>
+      </div>
       <div class="w-full h-full bg-white rounded-2xl shadow p-4 md:p-8 flex flex-col gap-4 flex-1">
         <!-- Tabs -->
         <div class="flex items-center gap-8 mb-6">
