@@ -27,6 +27,7 @@ import { Component } from '@angular/core';
 export const routes: Routes = [
   { path: 'signin', component: Signin },
   { path: 'agency/signin', component: AgencySignin },
+  { path: 'customer/signin', loadComponent: () => import('./pages/customer/signin').then(m => m.CustomerSignin) },
   {
     path: 'admin',
     component: AdminLayoutComponent,
