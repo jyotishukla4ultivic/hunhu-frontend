@@ -1,0 +1,14 @@
+.mat-calendar-body-selected, .mat-calendar-body-range-start, .mat-calendar-body-range-end {
+  background-color: #8280FF !important;
+  color: #fff !important;
+  border-radius: 50% !important;
+}
+
+.mat-calendar-body-in-range {
+  background-color: #DFDFDF00 !important;
+  color: #8280FF !important;
+}
+
+.mat-calendar-body-cell-content {
+  font-weight: 500;
+} 
