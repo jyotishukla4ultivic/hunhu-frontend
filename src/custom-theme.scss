@@ -12,3 +12,11 @@ $hunhu-theme:   mat.define-light-theme((
 ));
 
 @include mat.all-component-themes($hunhu-theme);
+
+:root {
+  --primary: #3B82F6;
+  --secondary: #22C55E;
+  --background: #F4F6FA;
+  --card: #FFFFFF;
+  --text: #111827;
+}

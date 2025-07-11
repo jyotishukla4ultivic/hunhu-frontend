@@ -1,0 +1,19 @@
+<!-- <div class="theme-picker">
+  <div *ngFor="let key of themeKeys">
+    <label>{{ key | titlecase }} Color:</label>
+    <input type="color" [value]="theme[key] || ''" (input)="updateColor(key, $event.target.value)" />
+    <span>{{ theme[key] }}</span>
+  </div>
+</div>  -->
+
+<div class="theme-picker">
+  <div *ngFor="let key of themeKeys">
+    <label>{{ key | titlecase }} Color:</label>
+    <input
+      type="color"
+      [value]="getColor(key)"
+      (input)="updateColor(key, $event)"
+    />
+    <span>{{ getColor(key) }}</span>
+  </div>
+</div>

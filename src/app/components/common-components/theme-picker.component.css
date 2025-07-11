@@ -1,0 +1,15 @@
+.theme-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.theme-picker label {
+  margin-right: 0.5rem;
+}
+.theme-picker input[type='color'] {
+  margin-right: 0.5rem;
+  border: none;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+} 

@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NgIf, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ThemePickerComponent } from '../../../components/common-components/theme-picker.component';
+import { ThemeColors } from '../../../models/theme.model';
+import { ThemeService } from '../../../services/theme.service';
+
 
 @Component({
   selector: 'app-add-agency',
   standalone: true,
-  imports: [NgIf, NgClass, FormsModule],
+  imports: [NgIf, NgClass, FormsModule, ThemePickerComponent],
   template: `
     <div class="p-8 min-h-screen bg-gray-50">
       <h1 class="text-2xl font-bold mb-1">Agency</h1>
@@ -158,10 +162,9 @@ import { FormsModule } from '@angular/forms';
             <!-- Theme Color Customization -->
             <div class="bg-white rounded-xl border border-[#E0E7EF] p-6 flex flex-col items-center">
               <img src="/assets/icons/emptyStateImage.svg" class="w-40 h-24 object-contain mb-2" />
-            
               <div class="font-semibold text-base mb-1">Customize Theme Colour</div>
               <div class="text-xs text-gray-400 text-center mb-2">Customize your dashboard easily with different theme colours. Pick your brand and favourite to match your style and work needs.</div>
-              <button class="px-4 py-2 rounded-lg bg-[#1952B3] text-white font-semibold text-sm">Customize Colour</button>
+              <app-theme-picker [theme]="theme" (themeChange)="onThemeChange($event)"></app-theme-picker>
             </div>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -191,4 +194,13 @@ import { FormsModule } from '@angular/forms';
 })
 export class AddAgencyComponent {
   tab = 0;
+  theme: ThemeColors;
+  themeService = inject(ThemeService);
+  constructor() {
+    this.theme = this.themeService.getTheme();
+  }
+  onThemeChange(newTheme: ThemeColors) {
+    this.theme = newTheme;
+    this.themeService.setTheme(newTheme);
+  }
 } 
