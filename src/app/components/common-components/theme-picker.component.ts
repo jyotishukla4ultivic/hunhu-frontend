@@ -50,14 +50,37 @@ export class ThemePickerComponent {
   @Input() theme: ThemeColors = {
     primary: '#3B82F6',
     secondary: '#22C55E',
-    background: '#F4F6FA',
-    card: '#FFFFFF',
+    layoutBackground: '#F5F6FA',
+    contentBackground: '#F3F4F6',
+    cardBackground: '#111827',
+    layoutIcons: '#1E3353',
+    random: '#000000',
     text: '#111827',
   };
 
   @Output() themeChange = new EventEmitter<ThemeColors>();
 
-  themeKeys: (keyof ThemeColors)[] = ['primary', 'secondary', 'background', 'card', 'text'];
+  themeKeys: (keyof ThemeColors)[] = [
+    'primary',
+    'secondary',
+    'layoutBackground',
+    'contentBackground',
+    'cardBackground',
+    'layoutIcons',
+    'random',
+    'text',
+  ];
+
+  defaultTheme: ThemeColors = {
+    primary: '#8B8DF6',
+    secondary: '#22C55E',
+    layoutBackground: '#F5F6FA',
+    contentBackground: '#F3F4F6',
+    cardBackground: '#111827',
+    layoutIcons: '#1E3353',
+    random: '#000000',
+    text: '#111827',
+  };
 
   updateColor(key: keyof ThemeColors, event: Event) {
   const input = event.target as HTMLInputElement;

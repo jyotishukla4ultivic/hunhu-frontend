@@ -37,6 +37,7 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'agency', component: AgencyComponent },
       { path: 'agency/add', component: AddAgencyComponent },
+      { path: 'agency/customize-theme', loadComponent: () => import('./pages/admin/agency/customize-theme.component').then(m => m.CustomizeThemeComponent) },
       { path: 'agency/:id', component: AgencyDetailComponent },
       { path: 'category', component: CategoryComponent },
       { path: 'payment-history', component: PaymentHistoryComponent },

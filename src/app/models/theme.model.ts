@@ -1,7 +1,10 @@
 export interface ThemeColors {
   primary: string;
   secondary: string;
-  background: string;
-  card: string;
+  layoutBackground: string;
+  contentBackground: string;
+  cardBackground: string;
+  layoutIcons: string;
+  random: string;
   text: string;
 } 

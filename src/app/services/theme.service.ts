@@ -5,8 +5,11 @@ import { ThemeColors } from '../models/theme.model';
 const DEFAULT_THEME: ThemeColors = {
   primary: '#3B82F6',
   secondary: '#22C55E',
-  background: '#F4F6FA',
-  card: '#FFFFFF',
+  layoutBackground: '#F5F6FA',
+  contentBackground: '#F3F4F6',
+  cardBackground: '#111827',
+  layoutIcons: '#1E3353',
+  random: '#000000',
   text: '#111827',
 };
 
@@ -32,8 +35,11 @@ export class ThemeService {
     const root = document.documentElement;
     root.style.setProperty('--primary', theme.primary);
     root.style.setProperty('--secondary', theme.secondary);
-    root.style.setProperty('--background', theme.background);
-    root.style.setProperty('--card', theme.card);
+    root.style.setProperty('--layout-background', theme.layoutBackground);
+    root.style.setProperty('--content-background', theme.contentBackground);
+    root.style.setProperty('--card-background', theme.cardBackground);
+    root.style.setProperty('--layout-icons', theme.layoutIcons);
+    root.style.setProperty('--random', theme.random);
     root.style.setProperty('--text', theme.text);
   }
 } 

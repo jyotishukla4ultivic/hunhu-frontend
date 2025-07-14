@@ -24,6 +24,7 @@ import { CommonModule } from '@angular/common';
             <span class="font-semibold text-gray-900">5.0</span>
           </div>
           <div class="flex items-center gap-1 text-xs">
+          
             <span class="font-semibold text-gray-900">{{appointments | number}}</span>
             <span class="text-gray-400">Appointments</span>
           </div>

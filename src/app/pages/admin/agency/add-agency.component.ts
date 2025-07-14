@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ThemePickerComponent } from '../../../components/common-components/theme-picker.component';
 import { ThemeColors } from '../../../models/theme.model';
 import { ThemeService } from '../../../services/theme.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -164,6 +165,7 @@ import { ThemeService } from '../../../services/theme.service';
               <img src="/assets/icons/emptyStateImage.svg" class="w-40 h-24 object-contain mb-2" />
               <div class="font-semibold text-base mb-1">Customize Theme Colour</div>
               <div class="text-xs text-gray-400 text-center mb-2">Customize your dashboard easily with different theme colours. Pick your brand and favourite to match your style and work needs.</div>
+              <button class="px-4 py-2 rounded-lg bg-[#1952B3] text-white font-semibold text-sm mb-2" (click)="goToCustomizeTheme()">Customize Colour</button>
               <app-theme-picker [theme]="theme" (themeChange)="onThemeChange($event)"></app-theme-picker>
             </div>
           </div>
@@ -196,11 +198,15 @@ export class AddAgencyComponent {
   tab = 0;
   theme: ThemeColors;
   themeService = inject(ThemeService);
+  router = inject(Router);
   constructor() {
     this.theme = this.themeService.getTheme();
   }
   onThemeChange(newTheme: ThemeColors) {
     this.theme = newTheme;
     this.themeService.setTheme(newTheme);
+  }
+  goToCustomizeTheme() {
+    this.router.navigate(['/admin/agency/customize-theme']);
   }
 } 
