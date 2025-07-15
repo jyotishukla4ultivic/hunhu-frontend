@@ -24,12 +24,14 @@ import { CrossAgenciesListComponent } from './pages/agency/cross-agencies-list.c
 import { SettingsComponent as AgencySettingsComponent } from './pages/agency/settings/settings.component';
 import { Component } from '@angular/core';
 import { ConsumerLayoutComponent } from './components/consumer-layout/consumer-layout.component';
+import { ProviderLayoutComponent } from './components/provider-layout/provider-layout.component';
 
 export const routes: Routes = [
   { path: 'signin', component: Signin },
   { path: 'agency/signin', component: AgencySignin },
   { path: 'consumer/signin', loadComponent: () => import('./pages/consumer/signin').then(m => m.default) },
   { path: 'consumer/signup', loadComponent: () => import('./pages/consumer/signup/signup.component').then(m => m.SignupComponent) },
+  { path: 'provider/signin', loadComponent: () => import('./pages/provider/signin.component').then(m => m.ProviderSigninComponent) },
   {
     path: 'admin',
     component: AdminLayoutComponent,
@@ -81,6 +83,22 @@ export const routes: Routes = [
       { path: 'settings', loadComponent: () => import('./pages/consumer/settings/settings.component').then(m => m.SettingsComponent) },
       { path: 'logout', loadComponent: () => import('./pages/consumer/logout/logout.component').then(m => m.LogoutComponent) },
       { path: 'search-services', loadComponent: () => import('./pages/consumer/search-services/search-services.component').then(m => m.SearchServicesComponent) },
+      { path: 'service/:id', loadComponent: () => import('./pages/consumer/search-services/service-detail.component').then(m => m.ServiceDetailComponent) },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+    ]
+  },
+  {
+    path: 'provider',
+    component: ProviderLayoutComponent,
+    children: [
+      { path: 'dashboard', loadComponent: () => import('./pages/provider/dashboard.component').then(m => m.ProviderDashboardComponent) },
+      { path: 'services', loadComponent: () => import('./pages/provider/services.component').then(m => m.ProviderServicesComponent) },
+      { path: 'appointments', loadComponent: () => import('./pages/provider/appointments.component').then(m => m.ProviderAppointmentsComponent) },
+      { path: 'messages', loadComponent: () => import('./pages/provider/messages.component').then(m => m.ProviderMessagesComponent) },
+      { path: 'payment-history', loadComponent: () => import('./pages/provider/payment-history.component').then(m => m.ProviderPaymentHistoryComponent) },
+      { path: 'notification', loadComponent: () => import('./pages/provider/notification.component').then(m => m.ProviderNotificationComponent) },
+      { path: 'profile', loadComponent: () => import('./pages/provider/profile.component').then(m => m.ProviderProfileComponent) },
+      { path: 'logout', loadComponent: () => import('./pages/provider/logout.component').then(m => m.ProviderLogoutComponent) },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
