@@ -1,0 +1,8 @@
+{
+  "DASHBOARD_TITLE": "Consumer Dashboard",
+  "WELCOME_USER": "Welcome, {{name}}!",
+  "APPOINTMENTS": "Appointments",
+  "PAYMENT_HISTORY": "Payment History",
+  "NO_APPOINTMENTS": "You have no appointments scheduled.",
+  "BALANCE": "Your balance is {{amount, currency}}."
+} 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonChartComponent } from '../../../components/common-components/common-chart.component';
 import { MatDatepickerModule, MatCalendar, MatCalendarHeader, MatCalendarCellClassFunction } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -6,11 +6,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-consumer-dashboard',
   standalone: true,
-  imports: [CommonChartComponent, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, FormsModule, DatePipe],
+  imports: [CommonChartComponent, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, FormsModule, DatePipe, TranslateModule, CurrencyPipe],
   template: `
 <div class="flex flex-col md:flex-row gap-6 p-6 bg-[#F7F8FA] min-h-screen">
   <!-- Main Content -->
@@ -20,28 +23,28 @@ import { DatePipe } from '@angular/common';
       <div class="bg-gradient-to-r from-[#5B5BFF] to-[#8280FF] rounded-2xl p-6 text-white flex-1 shadow-lg">
         <div class="flex justify-between items-center mb-4">
           <div>
-            <div class="text-sm">Balance</div>
-            <div class="text-2xl font-bold">$5,756</div>
+            <div class="text-sm">{{ 'BALANCE' | translate }}</div>
+            <div class="text-2xl font-bold">{{ balance | currency:'USD' }}</div>
           </div>
           <span class="material-icons text-4xl">credit_card</span>
         </div>
-        <div class="mb-2 text-xs">CARD HOLDER</div>
-        <div class="mb-2 font-semibold">Eddy Cusuma</div>
-        <div class="mb-2 text-xs">VALID THRU</div>
+        <div class="mb-2 text-xs">{{ 'CARD_HOLDER' | translate }}</div>
+        <div class="mb-2 font-semibold">{{ userName }}</div>
+        <div class="mb-2 text-xs">{{ 'VALID_THRU' | translate }}</div>
         <div class="mb-4 font-semibold">12/22</div>
         <div class="text-lg tracking-widest font-mono">3778 **** **** 1234</div>
       </div>
       <div class="bg-white rounded-2xl p-6 flex-1 shadow border border-gray-100 flex flex-col justify-between">
         <div class="flex justify-between items-center mb-4">
           <div>
-            <div class="text-sm">Balance</div>
-            <div class="text-2xl font-bold">$5,756</div>
+            <div class="text-sm">{{ 'BALANCE' | translate }}</div>
+            <div class="text-2xl font-bold">{{ balance | currency:'USD' }}</div>
           </div>
           <span class="material-icons text-4xl">credit_card</span>
         </div>
-        <div class="mb-2 text-xs">CARD HOLDER</div>
-        <div class="mb-2 font-semibold">Eddy Cusuma</div>
-        <div class="mb-2 text-xs">VALID THRU</div>
+        <div class="mb-2 text-xs">{{ 'CARD_HOLDER' | translate }}</div>
+        <div class="mb-2 font-semibold">{{ userName }}</div>
+        <div class="mb-2 text-xs">{{ 'VALID_THRU' | translate }}</div>
         <div class="mb-4 font-semibold">12/22</div>
         <div class="text-lg tracking-widest font-mono">3778 **** **** 1234</div>
       </div>
@@ -49,11 +52,11 @@ import { DatePipe } from '@angular/common';
     <!-- Payment History & Recent Transaction -->
     <div class="flex flex-col md:flex-row gap-6">
       <div class="bg-white rounded-2xl p-6 flex-1 shadow border border-gray-100">
-        <div class="font-semibold mb-2">Payment History</div>
+        <div class="font-semibold mb-2">{{ 'PAYMENT_HISTORY' | translate }}</div>
         <app-common-chart [data]="chartData" [options]="chartOptions" type="line"></app-common-chart>
       </div>
       <div class="bg-white rounded-2xl p-6 flex-1 shadow border border-gray-100">
-        <div class="font-semibold mb-2">Recent Transaction</div>
+        <div class="font-semibold mb-2">{{ 'RECENT_TRANSACTION' | translate }}</div>
         <div class="flex flex-col gap-4">
           <div class="flex items-center gap-3">
             <span class="material-icons text-3xl bg-yellow-100 rounded-full p-2">account_circle</span>
@@ -92,18 +95,18 @@ import { DatePipe } from '@angular/common';
     </div>
     <!-- Dispute Table -->
     <div class="bg-white rounded-2xl p-6 shadow border border-gray-100">
-      <div class="font-semibold mb-2">Dispute</div>
+      <div class="font-semibold mb-2">{{ 'DISPUTE' | translate }}</div>
       <div class="overflow-x-auto">
         <table class="min-w-full text-sm">
           <thead>
             <tr class="bg-gray-50">
               <th class="p-2"><input type="checkbox" /></th>
-              <th class="p-2 text-left">Provider Name</th>
-              <th class="p-2 text-left">Service Date</th>
-              <th class="p-2 text-left">Service</th>
-              <th class="p-2 text-left">Status</th>
-              <th class="p-2 text-left">Dispute In Favour</th>
-              <th class="p-2 text-left">Action</th>
+              <th class="p-2 text-left">{{ 'PROVIDER_NAME' | translate }}</th>
+              <th class="p-2 text-left">{{ 'SERVICE_DATE' | translate }}</th>
+              <th class="p-2 text-left">{{ 'SERVICE' | translate }}</th>
+              <th class="p-2 text-left">{{ 'STATUS' | translate }}</th>
+              <th class="p-2 text-left">{{ 'DISPUTE_IN_FAVOUR' | translate }}</th>
+              <th class="p-2 text-left">{{ 'ACTION' | translate }}</th>
             </tr>
           </thead>
           <tbody>
@@ -112,9 +115,9 @@ import { DatePipe } from '@angular/common';
               <td class="p-2">Provider 01</td>
               <td class="p-2">13-04-2025</td>
               <td class="p-2">Lorem Ipsum is simply dummy</td>
-              <td class="p-2"><span class="bg-green-100 text-green-700 px-2 py-1 rounded">Resolved</span></td>
-              <td class="p-2">Consumer</td>
-              <td class="p-2"><button class="bg-red-100 text-red-500 px-3 py-1 rounded">Cancel</button></td>
+              <td class="p-2"><span class="bg-green-100 text-green-700 px-2 py-1 rounded">{{ 'RESOLVED' | translate }}</span></td>
+              <td class="p-2">{{ 'CONSUMER' | translate }}</td>
+              <td class="p-2"><button class="bg-red-100 text-red-500 px-3 py-1 rounded">{{ 'CANCEL' | translate }}</button></td>
             </tr>
           </tbody>
         </table>
@@ -124,7 +127,7 @@ import { DatePipe } from '@angular/common';
   <!-- Right Sidebar: Appointment Calendar & Appointments -->
   <div class="w-full md:w-96 flex-shrink-0 flex flex-col gap-6">
     <div class="bg-white rounded-2xl p-6 shadow border border-gray-100">
-      <div class="font-semibold mb-2">Appointment Calendar</div>
+      <div class="font-semibold mb-2">{{ 'APPOINTMENT_CALENDAR' | translate }}</div>
       <div class="flex flex-col items-center">
       <div class="w-full">
   <mat-calendar
@@ -136,11 +139,11 @@ import { DatePipe } from '@angular/common';
   ></mat-calendar>
 </div>
 
-        <div class="text-xs text-gray-400 mt-2">Selected: {{ range.start | date:'MMM d, yyyy' }} - {{ range.end | date:'MMM d, yyyy' }}</div>
+        <div class="text-xs text-gray-400 mt-2">{{ 'SELECTED_DATE_RANGE' | translate: { start: (range.start | date:'MMM d, yyyy'), end: (range.end | date:'MMM d, yyyy') } }}</div>
       </div>
     </div>
     <div class="bg-white rounded-2xl p-6 shadow border border-gray-100 flex-1">
-      <div class="font-semibold mb-2">Appointments</div>
+      <div class="font-semibold mb-2">{{ 'APPOINTMENTS' | translate }}</div>
       <div class="flex flex-col gap-4">
         <div class="flex items-center gap-3" *ngFor="let appt of [1,2,3,4,5,6,7,8]">
           <img src="https://randomuser.me/api/portraits/men/{{appt+10}}.jpg" class="w-10 h-10 rounded-full" />
@@ -157,7 +160,7 @@ import { DatePipe } from '@angular/common';
   `,
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   chartData = {
     labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'],
     datasets: [
@@ -192,6 +195,24 @@ export class DashboardComponent {
   selecting = false;
   customHeader = CustomCalendarHeaderComponent;
 
+  userName = 'John';
+  balance = 123.45;
+  dashboardTitle = '';
+
+  constructor(private translate: TranslateService, private http: HttpClient) {}
+
+  ngOnInit() {
+    // Dynamically load and merge the feature translation file
+    const lang = this.translate.currentLang || this.translate.getDefaultLang() || 'en';
+    this.http.get(`/assets/i18n/${lang}/consumer-dashboard.json`).subscribe((translations) => {
+      this.translate.setTranslation(lang, translations, true); // Merge with existing
+      // Example: get a translation in TS
+      this.translate.get('DASHBOARD_TITLE').subscribe(title => {
+        this.dashboardTitle = title;
+      });
+    });
+  }
+
   onCalendarChange(date: Date|null) {
     if (!date) return;
     if (!this.selecting) {
@@ -219,6 +240,11 @@ export class DashboardComponent {
       new Date(year, month, date) <= new Date(end.getFullYear(), end.getMonth(), end.getDate());
     return inRange ? 'mat-calendar-body-in-range' : '';
   };
+
+  // Example: get a translation instantly in TS
+  getNoAppointmentsMsg(): string {
+    return this.translate.instant('NO_APPOINTMENTS');
+  }
 }
 
 @Component({

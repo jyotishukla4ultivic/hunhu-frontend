@@ -1,0 +1,8 @@
+{
+  "DASHBOARD_TITLE": "Tableau de bord du consommateur",
+  "WELCOME_USER": "Bienvenue, {{name}} !",
+  "APPOINTMENTS": "Rendez-vous",
+  "PAYMENT_HISTORY": "Historique des paiements",
+  "NO_APPOINTMENTS": "Vous n'avez aucun rendez-vous prévu.",
+  "BALANCE": "Votre solde est de {{amount, currency}}."
+} 
