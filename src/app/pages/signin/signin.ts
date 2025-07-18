@@ -36,7 +36,10 @@ export class Signin {
     this.authService.login(payload)
       .subscribe({
         next: (response) => {
-          // Handle successful login (e.g., store token, redirect)
+          // Store token in localStorage
+          if (response?.data?.token) {
+            localStorage.setItem('auth_token', response.data.token);
+          }
           this.router.navigate(['/admin/dashboard']);
         },
         error: (error) => {

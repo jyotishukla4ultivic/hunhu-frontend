@@ -4,6 +4,7 @@ import { ThemeColors } from '../../../models/theme.model';
 import { ThemeService } from '../../../services/theme.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 // Define the keys for ThemeColors
 const THEME_COLOR_KEYS = [
@@ -21,11 +22,36 @@ type ThemeColorKey = typeof THEME_COLOR_KEYS[number];
 @Component({
   selector: 'app-customize-theme',
   standalone: true,
-  imports: [ThemePickerComponent, FormsModule, CommonModule],
+  imports: [ThemePickerComponent, FormsModule, CommonModule, TranslateModule],
   template: `
     <div class="p-8 min-h-screen bg-gray-50 flex flex-col items-center">
       <div class="w-full">
         <h1 class="text-2xl font-bold mb-8">Customize Theme Colour</h1>
+        <!-- Random Color Button -->
+        <div class="flex justify-end mb-4">
+          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold flex items-center gap-2" (click)="openRandomColorModal()">
+            <span class="material-icons">palette</span>
+            {{ 'RANDOM_COLOR' | translate }}
+          </button>
+        </div>
+        <!-- Random Color Modal -->
+        <div *ngIf="showPaletteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+          <div class="bg-white rounded-xl shadow-lg p-6 w-[700px] relative">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-2">
+                <span class="material-icons text-blue-600">palette</span>
+                <span class="font-semibold text-lg">{{ 'RANDOM_COLOR' | translate }}</span>
+              </div>
+              <button class="text-gray-400 hover:text-gray-700 text-2xl font-bold" (click)="closeModal()">&times;</button>
+            </div>
+            <div class="mb-2 font-medium">{{ 'COLOUR_PALETTES' | translate }}</div>
+            <div class="flex flex-wrap gap-4">
+              <div *ngFor="let palette of colorPalettes" class="flex gap-1 bg-gray-100 rounded-lg p-1">
+                <span *ngFor="let color of palette.colors" [style.background]="color" class="block w-8 h-8 rounded"></span>
+              </div>
+            </div>
+          </div>
+        </div>
         <!-- Edge-to-edge full-width preview card -->
         <div class="my-8 bg-white rounded-2xl shadow-lg p-8 w-full">
           <div class="flex gap-4 items-start">
@@ -325,6 +351,10 @@ export class CustomizeThemeComponent {
   @ViewChildren('colorInputRow1') colorInputsRow1!: QueryList<ElementRef<HTMLInputElement>>;
   @ViewChildren('colorInputRow2') colorInputsRow2!: QueryList<ElementRef<HTMLInputElement>>;
 
+  // Modal and palette state
+  showPaletteModal = false;
+  colorPalettes: any[] = [];
+
   constructor() {
     this.theme = this.themeService.getTheme();
   }
@@ -350,5 +380,19 @@ export class CustomizeThemeComponent {
   onThemeChange(newTheme: ThemeColors) {
     this.theme = newTheme;
     this.themeService.setTheme(newTheme);
+  }
+
+  // --- Random Color Modal Logic ---
+  openRandomColorModal() {
+    this.themeService.getThemePresets({ per_page: 10, page: 1, search: 'random' })
+      .subscribe((res: any) => {
+        // Expecting res.data to be an array of palettes, each with a 'colors' array
+        this.colorPalettes = res.data || [];
+        this.showPaletteModal = true;
+      });
+  }
+
+  closeModal() {
+    this.showPaletteModal = false;
   }
 } 

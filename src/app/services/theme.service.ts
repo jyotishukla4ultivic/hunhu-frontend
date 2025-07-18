@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ThemeColors } from '../models/theme.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 const DEFAULT_THEME: ThemeColors = {
   primary: '#3B82F6',
@@ -18,7 +21,7 @@ export class ThemeService {
   private themeSubject = new BehaviorSubject<ThemeColors>(DEFAULT_THEME);
   theme$ = this.themeSubject.asObservable();
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.applyTheme(DEFAULT_THEME);
   }
 
@@ -29,6 +32,13 @@ export class ThemeService {
 
   getTheme(): ThemeColors {
     return this.themeSubject.value;
+  }
+
+  /**
+   * Fetch color palettes from the API
+   */
+  getThemePresets(params: any): Observable<any> {
+    return this.http.post(`${environment.baseUrl}/theme-presets`, params);
   }
 
   private applyTheme(theme: ThemeColors) {
