@@ -1,0 +1,16 @@
+<label *ngIf="label" class="block text-xs font-semibold mb-1 text-gray-700">{{ label }}</label>
+<div class="flex gap-2 items-center">
+  <div class="flex items-center border border-[#E0E7EF] px-2 py-2 bg-white" style="border-radius:0;">
+    <img src="assets/icons/india-flag.svg" alt="IND" class="w-5 h-5 mr-1 rounded-full" />
+    <span class="text-sm">IND(+91)</span>
+  </div>
+  <input
+    type="text"
+    class="flex-1 border border-[#E0E7EF] px-4 py-2 text-sm focus:ring-2 focus:ring-[#1952B3]"
+    [placeholder]="placeholder"
+    [(ngModel)]="phone"
+    [disabled]="disabled"
+    (ngModelChange)="phoneChange.emit($event)"
+    style="border-radius:0;"
+  />
+</div>
