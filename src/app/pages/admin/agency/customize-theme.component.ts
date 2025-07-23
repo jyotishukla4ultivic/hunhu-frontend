@@ -1,4 +1,4 @@
-import { Component, inject, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, inject, ViewChildren, QueryList, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { ThemePickerComponent } from '../../../components/common-components/theme-picker.component';
 import { ThemeColors } from '../../../models/theme.model';
 import { ThemeService } from '../../../services/theme.service';
@@ -14,8 +14,8 @@ const THEME_COLOR_KEYS = [
   'cardBackground',
   'primary',
   'secondary',
+  'random', // used for Layout text Color
   'layoutIcons',
-  'random',
 ] as const;
 type ThemeColorKey = typeof THEME_COLOR_KEYS[number];
 
@@ -28,25 +28,24 @@ type ThemeColorKey = typeof THEME_COLOR_KEYS[number];
       <div class="w-full">
         <h1 class="text-2xl font-bold mb-8">Customize Theme Colour</h1>
         <!-- Random Color Button -->
-        <div class="flex justify-end mb-4">
-          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold flex items-center gap-2" (click)="openRandomColorModal()">
+        <div class="flex justify-end mb-4 relative">
+          <button #randomColorBtn class="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold flex items-center gap-2" (click)="openRandomColorModal()">
             <span class="material-icons">palette</span>
             {{ 'RANDOM_COLOR' | translate }}
           </button>
-        </div>
-        <!-- Random Color Modal -->
-        <div *ngIf="showPaletteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
-          <div class="bg-white rounded-xl shadow-lg p-6 w-[700px] relative">
+          <!-- Dropdown Modal -->
+          <div *ngIf="showPaletteModal" [ngStyle]="popoverStyle" class="absolute z-50 bg-white rounded-xl shadow-lg top-[40px] p-6 w-[700px] max-w-[95vw] border border-gray-200 mt-2" (click)="$event.stopPropagation()">
             <div class="flex items-center justify-between mb-4">
               <div class="flex items-center gap-2">
                 <span class="material-icons text-blue-600">palette</span>
                 <span class="font-semibold text-lg">{{ 'RANDOM_COLOR' | translate }}</span>
               </div>
-              <button class="text-gray-400 hover:text-gray-700 text-2xl font-bold" (click)="closeModal()">&times;</button>
+              <button class="text-gray-400 hover:text-gray-700 text-2xl font-bold absolute top-4 right-6" (click)="closeModal()">&times;</button>
             </div>
             <div class="mb-2 font-medium">{{ 'COLOUR_PALETTES' | translate }}</div>
-            <div class="flex flex-wrap gap-4">
-              <div *ngFor="let palette of colorPalettes" class="flex gap-1 bg-gray-100 rounded-lg p-1">
+            <div *ngIf="colorPalettes.length === 0" class="text-red-500 mb-4">No color palettes found. Showing demo palettes.</div>
+            <div class="flex flex-wrap gap-4 overflow-x-auto max-w-full">
+              <div *ngFor="let palette of colorPalettes" class="flex gap-1 bg-gray-100 rounded-lg p-1 cursor-pointer" (click)="applyPalette(palette.colors)">
                 <span *ngFor="let color of palette.colors" [style.background]="color" class="block w-8 h-8 rounded"></span>
               </div>
             </div>
@@ -237,7 +236,7 @@ type ThemeColorKey = typeof THEME_COLOR_KEYS[number];
                       <div class="text-sm font-semibold text-gray-900">Jacquelyn Gallit</div>
                       <div class="text-xs text-gray-500">Nurse</div>
                     </div>
-                    <button class="px-3 py-1 rounded text-xs font-semibold bg-[#22C55E] text-white">Active</button>
+                    <span class="px-3 py-1 rounded text-xs font-semibold" [ngStyle]="{'color': theme.secondary, 'background': theme.secondary + '1A'}">Active</span>
                     <span class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 bg-white">
                       <span class="material-icons text-gray-400 text-base cursor-pointer">visibility</span>
                     </span>
@@ -249,7 +248,7 @@ type ThemeColorKey = typeof THEME_COLOR_KEYS[number];
                       <div class="text-sm font-semibold text-gray-900">Allison Toeff</div>
                       <div class="text-xs text-gray-500">Staff Nurse</div>
                     </div>
-                    <button class="px-3 py-1 rounded text-xs font-semibold bg-[#22C55E] text-white">Active</button>
+                    <span class="px-3 py-1 rounded text-xs font-semibold" [ngStyle]="{'color': theme.secondary, 'background': theme.secondary + '1A'}">Active</span>
                     <span class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 bg-white">
                       <span class="material-icons text-gray-400 text-base cursor-pointer">visibility</span>
                     </span>
@@ -260,7 +259,7 @@ type ThemeColorKey = typeof THEME_COLOR_KEYS[number];
                       <div class="text-sm font-semibold text-gray-900">Marilyn Stephenson</div>
                       <div class="text-xs text-gray-500">Spiritual</div>
                     </div>
-                    <button class="px-3 py-1 rounded text-xs font-semibold bg-[#22C55E] text-white">Active</button>
+                    <span class="px-3 py-1 rounded text-xs font-semibold" [ngStyle]="{'color': theme.secondary, 'background': theme.secondary + '1A'}">Active</span>
                     <span class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 bg-white">
                       <span class="material-icons text-gray-400 text-base cursor-pointer">visibility</span>
                     </span>
@@ -271,7 +270,7 @@ type ThemeColorKey = typeof THEME_COLOR_KEYS[number];
                       <div class="text-sm font-semibold text-gray-900">Tatiana Bobrods</div>
                       <div class="text-xs text-gray-500">Spiritual</div>
                     </div>
-                    <button class="px-3 py-1 rounded text-xs font-semibold bg-[#22C55E] text-white">Active</button>
+                    <span class="px-3 py-1 rounded text-xs font-semibold" [ngStyle]="{'color': theme.secondary, 'background': theme.secondary + '1A'}">Active</span>
                     <span class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 bg-white">
                       <span class="material-icons text-gray-400 text-base cursor-pointer">visibility</span>
                     </span>
@@ -282,7 +281,7 @@ type ThemeColorKey = typeof THEME_COLOR_KEYS[number];
                       <div class="text-sm font-semibold text-gray-900">Alice Newbomas</div>
                       <div class="text-xs text-gray-500">Spiritual</div>
                     </div>
-                    <button class="px-3 py-1 rounded text-xs font-semibold bg-[#22C55E] text-white">Active</button>
+                    <span class="px-3 py-1 rounded text-xs font-semibold" [ngStyle]="{'color': theme.secondary, 'background': theme.secondary + '1A'}">Active</span>
                     <span class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 bg-white">
                       <span class="material-icons text-gray-400 text-base cursor-pointer">visibility</span>
                     </span>
@@ -329,34 +328,44 @@ type ThemeColorKey = typeof THEME_COLOR_KEYS[number];
     </div>
   `
 })
-export class CustomizeThemeComponent {
+export class CustomizeThemeComponent implements AfterViewInit {
   theme: ThemeColors;
   themeService = inject(ThemeService);
 
-  colorRows = [
+  colorRows: Array<Array<{ key: ThemeColorKey; label: string; textClass: string; iconClass: string }>> = [
     [
-      { key: 'text' as ThemeColorKey, label: 'Text', textClass: 'text-white', iconClass: 'text-white' },
-      { key: 'layoutBackground' as ThemeColorKey, label: 'Layout Background', textClass: 'text-[#111827]', iconClass: 'text-[#111827]' },
-      { key: 'contentBackground' as ThemeColorKey, label: 'Content Background', textClass: 'text-[#111827]', iconClass: 'text-[#111827]' },
-      { key: 'cardBackground' as ThemeColorKey, label: 'Card Background', textClass: 'text-white', iconClass: 'text-white' },
+      { key: 'text', label: 'Text', textClass: 'text-white', iconClass: 'text-white' },
+      { key: 'layoutBackground', label: 'Layout Background', textClass: 'text-[#111827]', iconClass: 'text-[#111827]' },
+      { key: 'contentBackground', label: 'Content Background', textClass: 'text-[#111827]', iconClass: 'text-[#111827]' },
+      { key: 'cardBackground', label: 'Card Background', textClass: 'text-white', iconClass: 'text-white' },
     ],
     [
-      { key: 'primary' as ThemeColorKey, label: 'Primary', textClass: 'text-white', iconClass: 'text-white' },
-      { key: 'secondary' as ThemeColorKey, label: 'Secondary', textClass: 'text-white', iconClass: 'text-white' },
-      { key: 'layoutIcons' as ThemeColorKey, label: 'Layout Icons Color', textClass: 'text-white', iconClass: 'text-white' },
-      { key: 'random' as ThemeColorKey, label: 'Random Color', textClass: 'text-white', iconClass: 'text-white' },
+      { key: 'primary', label: 'Primary', textClass: 'text-white', iconClass: 'text-white' },
+      { key: 'secondary', label: 'Secondary', textClass: 'text-white', iconClass: 'text-white' },
+      { key: 'random', label: 'Layout text Color', textClass: 'text-white', iconClass: 'text-white' },
+      { key: 'layoutIcons', label: 'Layout Icons Color', textClass: 'text-white', iconClass: 'text-white' },
     ]
   ];
 
   @ViewChildren('colorInputRow1') colorInputsRow1!: QueryList<ElementRef<HTMLInputElement>>;
   @ViewChildren('colorInputRow2') colorInputsRow2!: QueryList<ElementRef<HTMLInputElement>>;
+  @ViewChild('randomColorBtn') randomColorBtn!: ElementRef;
 
   // Modal and palette state
   showPaletteModal = false;
   colorPalettes: any[] = [];
+  popoverStyle: any = undefined;
 
   constructor() {
     this.theme = this.themeService.getTheme();
+  }
+
+  ngAfterViewInit() {
+    // No longer needed as popoverStyle is removed
+  }
+
+  updatePopoverPosition() {
+    // No longer needed as popoverStyle is removed
   }
 
   openColorPicker(key: ThemeColorKey, i: number, row: number, event: MouseEvent) {
@@ -384,15 +393,92 @@ export class CustomizeThemeComponent {
 
   // --- Random Color Modal Logic ---
   openRandomColorModal() {
+    setTimeout(() => {
+      if (this.randomColorBtn) {
+        const rect = this.randomColorBtn.nativeElement.getBoundingClientRect();
+        // Position absolutely below the button, aligned right
+        this.popoverStyle = {
+          left: 'auto',
+          right: '0px',
+          top: '100%',
+        };
+      }
+    });
     this.themeService.getThemePresets({ per_page: 10, page: 1, search: 'random' })
-      .subscribe((res: any) => {
-        // Expecting res.data to be an array of palettes, each with a 'colors' array
-        this.colorPalettes = res.data || [];
-        this.showPaletteModal = true;
+      .subscribe({
+        next: (res: any) => {
+          console.log('Theme presets response:', res);
+          if (res && Array.isArray(res.data) && res.data.length > 0) {
+            // Map each theme object to a palette of 8 colors
+            this.colorPalettes = res.data.map((theme: any) => ({
+              colors: [
+                theme.text_color,
+                theme.layout_background,
+                theme.content_background,
+                theme.card_background,
+                theme.primary_color,
+                theme.secondary_color,
+                theme.layout_icon_color,
+                theme.random || '#000000'
+              ]
+            }));
+          } else {
+            // Fallback: show the provided palette as default
+            this.colorPalettes = [
+              {
+                colors: [
+                  '#DBCDFD', // text_color
+                  '#B99CFC', // layout_background
+                  '#7D49F8', // content_background
+                  '#6528F7', // card_background
+                  '#7D49F8', // primary_color
+                  '#501BCE', // secondary_color
+                  '#7D49F8', // layout_icon_color
+                  '#501BCE'  // random (fallback)
+                ]
+              }
+            ];
+          }
+          this.showPaletteModal = true;
+        },
+        error: (err) => {
+          console.error('Error fetching theme presets:', err);
+          // Fallback: show the provided palette as default
+          this.colorPalettes = [
+            {
+              colors: [
+                '#DBCDFD', // text_color
+                '#B99CFC', // layout_background
+                '#7D49F8', // content_background
+                '#6528F7', // card_background
+                '#7D49F8', // primary_color
+                '#501BCE', // secondary_color
+                '#7D49F8', // layout_icon_color
+                '#501BCE'  // random (fallback)
+              ]
+            }
+          ];
+          this.showPaletteModal = true;
+        }
       });
   }
 
   closeModal() {
+    this.showPaletteModal = false;
+  }
+
+  applyPalette(colors: string[]) {
+    this.theme = {
+      text: colors[0],
+      layoutBackground: colors[1],
+      contentBackground: colors[2],
+      cardBackground: colors[3],
+      primary: colors[4],
+      secondary: colors[5],
+      random: colors[6], // now used for Layout text Color
+      layoutIcons: colors[7]
+    };
+    this.themeService.setTheme(this.theme);
     this.showPaletteModal = false;
   }
 } 

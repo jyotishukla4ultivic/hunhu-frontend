@@ -1,0 +1,19 @@
+<div class="min-h-screen" [ngStyle]="{'background': theme.layoutBackground}">
+  <div class="rounded-xl shadow w-full" [ngStyle]="{'background': theme.contentBackground}">
+    <div class="p-8">
+      <div class="flex border-b mb-8" [ngStyle]="{'border-color': theme.cardBackground}">
+        <button class="flex items-center gap-2 px-6 py-3 -mb-px text-base font-semibold focus:outline-none" [ngClass]="tab === 0 ? 'border-b-2' : ''" [ngStyle]="tab === 0 ? {'border-bottom-color': theme.primary, 'color': theme.primary, 'background': theme.contentBackground} : {'color': theme.text}" (click)="tab = 0">
+          <img src="assets/icons/basicinformation.svg" alt="Basic Information" class="w-5 h-5 mr-2" /> Basic Information
+        </button>
+        <button class="flex items-center gap-2 px-6 py-3 -mb-px text-base font-semibold focus:outline-none" [ngClass]="tab === 1 ? 'border-b-2' : ''" [ngStyle]="tab === 1 ? {'border-bottom-color': theme.primary, 'color': theme.primary, 'background': theme.contentBackground} : {'color': theme.text}" (click)="tab = 1">
+          <img src="assets/icons/socialprofile.svg" alt="Social Profile" class="w-5 h-5 mr-2" /> Social Profile
+        </button>
+        <button class="flex items-center gap-2 px-6 py-3 -mb-px text-base font-semibold focus:outline-none" [ngClass]="tab === 2 ? 'border-b-2' : ''" [ngStyle]="tab === 2 ? {'border-bottom-color': theme.primary, 'color': theme.primary, 'background': theme.contentBackground} : {'color': theme.text}" (click)="tab = 2">
+          <img src="assets/icons/agencytab.svg" alt="Agency Information" class="w-5 h-5 mr-2" /> Agency Information
+        </button>
+      </div>
+      <!-- The rest of your template remains unchanged, but you can add [ngStyle] to other elements as needed for theme colors -->
+      <!-- ... existing code ... -->
+    </div>
+  </div>
+</div> 
