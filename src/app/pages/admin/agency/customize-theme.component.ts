@@ -1,4 +1,4 @@
-import { Component, inject, ViewChildren, QueryList, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, inject, ViewChildren, QueryList, ElementRef, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { ThemePickerComponent } from '../../../components/common-components/theme-picker.component';
 import { ThemeColors } from '../../../models/theme.model';
 import { ThemeService } from '../../../services/theme.service';
@@ -58,20 +58,43 @@ type ThemeColorKey = typeof THEME_COLOR_KEYS[number];
             <div class="w-56 min-h-[600px] bg-white flex flex-col py-8 px-4 border-r">
               <div class="font-bold text-xl mb-8">Yours Logo</div>
               <nav class="flex flex-col gap-2">
-                <a class="py-2 px-4 rounded-lg font-medium text-gray-700 bg-blue-50" href="#">Dashboard</a>
-                <a class="py-2 px-4 rounded-lg font-medium text-gray-700 hover:bg-gray-100" href="#">Providers</a>
-                <a class="py-2 px-4 rounded-lg font-medium text-gray-700 hover:bg-gray-100" href="#">Appointments</a>
-                <a class="py-2 px-4 rounded-lg font-medium text-gray-700 hover:bg-gray-100" href="#">Disputes</a>
-                <a class="py-2 px-4 rounded-lg font-medium text-gray-700 hover:bg-gray-100" href="#">Payment History</a>
-                <a class="py-2 px-4 rounded-lg font-medium text-gray-700 hover:bg-gray-100" href="#">Settings</a>
-                <a class="py-2 px-4 rounded-lg font-medium text-gray-700 hover:bg-gray-100" href="#">Logout</a>
+                <a class="py-2 px-4 rounded-lg font-medium flex items-center gap-2" [ngStyle]="{'background': theme.primary + '15', 'color': theme.primary, 'border-right': '3px solid ' + theme.primary}" href="#">
+                  <span class="material-icons">dashboard</span>
+                  Dashboard
+                </a>
+                <a class="py-2 px-4 rounded-lg font-medium flex items-center gap-2" [ngStyle]="{'color': theme.text}" href="#">
+                  <span class="material-icons">groups</span>
+                  Providers
+                  <span class="material-icons ml-auto">chevron_right</span>
+                </a>
+                <a class="py-2 px-4 rounded-lg font-medium flex items-center gap-2" [ngStyle]="{'color': theme.text}" href="#">
+                  <span class="material-icons">event</span>
+                  Appointments
+                </a>
+                <a class="py-2 px-4 rounded-lg font-medium flex items-center gap-2" [ngStyle]="{'color': theme.text}" href="#">
+                  <span class="material-icons">forum</span>
+                  Disputes
+                </a>
+                <a class="py-2 px-4 rounded-lg font-medium flex items-center gap-2" [ngStyle]="{'color': theme.text}" href="#">
+                  <span class="material-icons">receipt_long</span>
+                  Payment History
+                </a>
+                <hr class="my-2 border-gray-200">
+                <a class="py-2 px-4 rounded-lg font-medium flex items-center gap-2" [ngStyle]="{'color': theme.text}" href="#">
+                  <span class="material-icons">tune</span>
+                  Settings
+                </a>
+                <a class="py-2 px-4 rounded-lg font-medium flex items-center gap-2" [ngStyle]="{'color': theme.text}" href="#">
+                  <span class="material-icons">logout</span>
+                  Logout
+                </a>
               </nav>
             </div>
             <!-- Main Content -->
             <div class="flex-1 flex flex-col gap-6">
               <!-- Header area -->
               <div class="flex items-start gap-6 bg-[#F7F8FA] rounded-2xl p-8">
-                <div class="w-28 h-28 rounded-full bg-[#F3F3FF] flex items-center justify-center text-5xl font-bold text-[#7B61FF]">S</div>
+                <div class="w-28 h-28 rounded-full flex items-center justify-center text-5xl font-bold" [ngStyle]="{'background': theme.primary + '15', 'color': theme.primary}">S</div>
                 <div class="flex-1">
                   <div class="text-3xl font-bold mb-2">Name of the Agency will be displayed here</div>
                   <div class="text-sm text-gray-500 mb-4">Slogan or tagline of this agency will be displayed here, under the agency name</div>
@@ -135,20 +158,26 @@ type ThemeColorKey = typeof THEME_COLOR_KEYS[number];
             <!-- Right Sidebar -->
             <div class="w-[400px] flex flex-col gap-4">
               <!-- Stat Cards -->
-              <div class="flex gap-3 mb-4">
-                <div class="flex-1 rounded-xl border border-gray-200 bg-white p-4 flex flex-col items-center justify-center">
-                  <div class="w-10 h-10 rounded-full flex items-center justify-center mb-2 bg-[#F5F8FF]">
-                    <span class="material-icons text-[#1952B3] text-xl">groups</span>
+              <div class="flex gap-2 mb-4">
+                <div class="w-56 h-32 rounded-xl border border-gray-200 bg-white p-4 flex flex-col justify-between relative">
+                  <div class="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center" [ngStyle]="{'background': theme.secondary + '15'}">
+                    <img src="assets/icons/peopleIcon.svg" class="w-5 h-5" />
                   </div>
-                  <div class="text-xl font-bold text-gray-900">50</div>
-                  <div class="text-xs text-gray-500">Staff Provider</div>
+                  <div class="text-base font-semibold mb-1" [ngStyle]="{'color': theme.text}">Total Provider</div>
+                  <div class="text-2xl font-bold mb-2" [ngStyle]="{'color': theme.text}">50</div>
+                  <span class="px-3 py-1 rounded-full text-xs font-semibold border w-fit" [ngStyle]="{'color': theme.secondary, 'border-color': theme.secondary + '55', 'background': theme.secondary + '10'}">
+                    <span class="material-icons text-xs align-middle" [ngStyle]="{'color': theme.secondary}">trending_up</span> Today
+                  </span>
                 </div>
-                <div class="flex-1 rounded-xl border border-gray-200 bg-white p-4 flex flex-col items-center justify-center">
-                  <div class="w-10 h-10 rounded-full flex items-center justify-center mb-2 bg-[#E6F9F0]">
-                    <span class="material-icons text-[#22C55E] text-xl">person</span>
+                <div class="w-56 h-32 rounded-xl border border-gray-200 bg-white p-4 flex flex-col justify-between relative">
+                  <div class="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center" [ngStyle]="{'background': theme.primary + '15'}">
+                    <img src="assets/icons/disputeIcon.svg" class="w-5 h-5" />
                   </div>
-                  <div class="text-xl font-bold text-gray-900">25</div>
-                  <div class="text-xs text-gray-500">Total Consumer</div>
+                  <div class="text-base font-semibold mb-1" [ngStyle]="{'color': theme.text}">Total Dispute</div>
+                  <div class="text-2xl font-bold mb-2" [ngStyle]="{'color': theme.text}">25</div>
+                  <span class="px-3 py-1 rounded-full text-xs font-semibold border w-fit" [ngStyle]="{'color': theme.secondary, 'border-color': theme.secondary + '55', 'background': theme.secondary + '10'}">
+                    <span class="material-icons text-xs align-middle" [ngStyle]="{'color': theme.secondary}">trending_up</span> Today
+                  </span>
                 </div>
               </div>
               <!-- Today's Statistics Card -->
@@ -156,46 +185,40 @@ type ThemeColorKey = typeof THEME_COLOR_KEYS[number];
               <!-- Dashboard Cards (move here) -->
               <div class="flex flex-col gap-4">
                 <!-- Total Invoice Card -->
-                <div class="rounded-xl border border-gray-200 bg-white p-4 flex items-center gap-4">
-                  <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-[#F5F8FF]">
-                    <span class="material-icons text-[#1952B3] text-2xl">receipt_long</span>
-                  </div>
-                  <div class="flex-1">
-                    <div class="text-xs font-semibold text-gray-500 mb-1">Total Invoice (USD)</div>
-                    <div class="flex items-center gap-2 mb-1">
-                      <span class="text-lg font-bold text-[#22C55E]">$2,847</span>
-                      <span class="text-xs text-[#22C55E] font-semibold">54%</span>
+                <div class="flex items-center rounded-xl border border-gray-200 bg-white p-4">
+                  <div class="flex-1 flex flex-col justify-center">
+                    <div class="text-xs font-semibold" [ngStyle]="{'color': theme.text}">Total Invoice (USD)</div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-xl font-bold" [ngStyle]="{'color': theme.secondary}">$2,847</span>
+                      <span class="text-xs font-semibold" [ngStyle]="{'color': theme.secondary}">54%</span>
                     </div>
-                    <div class="text-xs text-gray-400">This has been a great quarter</div>
+                    <div class="text-xs" [ngStyle]="{'color': theme.text}">This has been a great quarter</div>
                   </div>
-                  <!-- Mock chart -->
-                  <div class="flex items-end gap-1 h-12">
-                    <div class="w-1.5 h-6 bg-[#1952B3] rounded"></div>
-                    <div class="w-1.5 h-8 bg-[#22C55E] rounded"></div>
-                    <div class="w-1.5 h-4 bg-[#1952B3] rounded"></div>
-                    <div class="w-1.5 h-10 bg-[#22C55E] rounded"></div>
-                    <div class="w-1.5 h-7 bg-[#1952B3] rounded"></div>
-                    <div class="w-1.5 h-11 bg-[#22C55E] rounded"></div>
+                  <div class="flex items-end gap-1 h-14 ml-4">
+                    <div class="w-1.5 h-6 rounded" [ngStyle]="{'background': theme.secondary}"></div>
+                    <div class="w-1.5 h-8 rounded" [ngStyle]="{'background': theme.secondary}"></div>
+                    <div class="w-1.5 h-4 rounded" [ngStyle]="{'background': theme.secondary}"></div>
+                    <div class="w-1.5 h-10 rounded" [ngStyle]="{'background': theme.primary}"></div>
+                    <div class="w-1.5 h-7 rounded" [ngStyle]="{'background': theme.primary}"></div>
+                    <div class="w-1.5 h-11 rounded" [ngStyle]="{'background': theme.primary}"></div>
                   </div>
-                  <button class="ml-2 w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 bg-white text-gray-400 hover:bg-gray-100">
+                  <button class="ml-4 w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 bg-white text-gray-400 hover:bg-gray-100">
                     <span class="material-icons text-base">more_vert</span>
                   </button>
                 </div>
                 <!-- Today's Sessions Card -->
                 <div class="rounded-xl border border-gray-200 bg-white p-4 flex items-center gap-4">
-                  <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-[#F5F8FF]">
-                    <span class="material-icons text-[#1952B3] text-2xl">event_available</span>
+                  <div class="w-12 h-12 rounded-lg flex items-center justify-center" [ngStyle]="{'background': theme.primary + '15'}">
+                    <span class="material-icons text-2xl" [ngStyle]="{'color': theme.primary}">event_available</span>
                   </div>
                   <div class="flex-1">
                     <div class="flex items-center gap-2 mb-1">
                       <span class="text-sm font-semibold text-gray-900">Today's Sessions</span>
-                      <span class="text-xs text-[#22C55E] font-semibold">14%</span>
-                      <span class="material-icons text-[#22C55E] text-xs">trending_up</span>
+                      <span class="text-xs font-semibold" [ngStyle]="{'color': theme.secondary}">14%</span>
+                      <span class="material-icons text-xs align-middle" [ngStyle]="{'color': theme.secondary}">trending_up</span>
                     </div>
                     <div class="flex items-center gap-2">
-                      <div class="w-full h-2 rounded bg-gray-200">
-                        <div class="h-2 rounded bg-[#1952B3]" style="width: 60%"></div>
-                      </div>
+                      <div class="w-full h-2 rounded" [ngStyle]="{'background': theme.primary, 'width': '60%'}"></div>
                       <span class="text-xs text-gray-400 ml-2">35 sessions</span>
                     </div>
                   </div>
@@ -205,14 +228,14 @@ type ThemeColorKey = typeof THEME_COLOR_KEYS[number];
                 </div>
                 <!-- Revenue Card -->
                 <div class="rounded-xl border border-gray-200 bg-white p-4 flex items-center gap-4">
-                  <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-[#F5F8FF]">
-                    <span class="material-icons text-[#1952B3] text-2xl">attach_money</span>
+                  <div class="w-12 h-12 rounded-lg flex items-center justify-center" [ngStyle]="{'background': theme.primary + '15'}">
+                    <span class="material-icons text-2xl" [ngStyle]="{'color': theme.primary}">attach_money</span>
                   </div>
                   <div class="flex-1">
                     <div class="flex items-center gap-2 mb-1">
-                      <span class="text-sm font-semibold text-gray-900">Revenue</span>
-                      <span class="text-xs text-[#22C55E] font-semibold">18%</span>
-                      <span class="material-icons text-[#22C55E] text-xs">trending_up</span>
+                      <span class="text-sm font-semibold" [ngStyle]="{'color': theme.text}">Revenue</span>
+                      <span class="text-xs font-semibold" [ngStyle]="{'color': theme.secondary}">18%</span>
+                      <span class="material-icons text-xs align-middle" [ngStyle]="{'color': theme.secondary}">trending_up</span>
                     </div>
                   </div>
                   <button class="ml-2 w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 bg-white text-gray-400 hover:bg-gray-100">
@@ -322,7 +345,7 @@ type ThemeColorKey = typeof THEME_COLOR_KEYS[number];
         </div>
         <!-- Save Button -->
         <div class="flex justify-end w-full">
-          <button class="px-6 py-2 rounded-lg bg-[#1952B3] text-white font-semibold text-sm">Save Agency</button>
+          <button class="px-6 py-2 rounded-lg bg-[#1952B3] text-white font-semibold text-sm" (click)="setThemeAndClose()">Set Theme</button>
         </div>
       </div>
     </div>
@@ -355,6 +378,8 @@ export class CustomizeThemeComponent implements AfterViewInit {
   showPaletteModal = false;
   colorPalettes: any[] = [];
   popoverStyle: any = undefined;
+
+  @Output() themeSet = new EventEmitter<ThemeColors>();
 
   constructor() {
     this.theme = this.themeService.getTheme();
@@ -480,5 +505,9 @@ export class CustomizeThemeComponent implements AfterViewInit {
     };
     this.themeService.setTheme(this.theme);
     this.showPaletteModal = false;
+  }
+
+  setThemeAndClose() {
+    this.themeSet.emit(this.theme);
   }
 } 
