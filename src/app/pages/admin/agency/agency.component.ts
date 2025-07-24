@@ -4,6 +4,8 @@ import { CommonTableComponent } from '../../../components/common-components/comm
 import { CommonPaginationComponent } from '../../../components/common-components/common-pagination.component';
 import { FormsModule } from '@angular/forms';
 import { NgIf, NgFor } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-agency',
@@ -35,17 +37,18 @@ export class AgencyComponent {
     { label: 'Consumers', key: 'consumers' }
   ];
 
-  data = Array.from({ length: 42 }).map((_, i) => ({
-    id: i + 1,
-    name: `Agency ${i < 9 ? '0' : ''}${i + 1}`,
-    subtext: i % 2 === 0 ? 'Spiritual' : 'Gym',
-    joinDate: '10 March, 2023',
-    mobile: '00 000 00000',
-    commission: i % 3 === 0 ? '15%' : '10%',
-    status: i % 5 === 0 ? 'Inactive' : 'Active',
-    providers: 80 + (i % 10),
-    consumers: 60 + (i % 10)
-  }));
+  // data = Array.from({ length: 42 }).map((_, i) => ({
+  //   id: i + 1,
+  //   name: `Agency ${i < 9 ? '0' : ''}${i + 1}`,
+  //   subtext: i % 2 === 0 ? 'Spiritual' : 'Gym',
+  //   joinDate: '10 March, 2023',
+  //   mobile: '00 000 00000',
+  //   commission: i % 3 === 0 ? '15%' : '10%',
+  //   status: i % 5 === 0 ? 'Inactive' : 'Active',
+  //   providers: 80 + (i % 10),
+  //   consumers: 60 + (i % 10)
+  // }));
+  data: any[] = [];
 
   get filteredData() {
     return this.data.filter(row => {
@@ -75,7 +78,28 @@ export class AgencyComponent {
     { icon: 'view', label: 'View', onClick: (row: any) => {} }
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private http: HttpClient) {}
+
+  ngOnInit() {
+    this.fetchAgencies();
+  }
+
+  fetchAgencies() {
+    this.http.get<any>(`${environment.baseUrl}/agency?page=${this.page}&per_page=${this.pageSize}`).subscribe({
+      next: (res) => {
+        // Defensive: handle both array and object
+        if (res && res.data && Array.isArray(res.data.data)) {
+          this.data = res.data.data;
+        } else {
+          this.data = [];
+        }
+      },
+      error: (err) => {
+        console.error('Failed to fetch agencies', err);
+        this.data = [];
+      }
+    });
+  }
 
   onNameClick = (row: any) => {
     this.router.navigate(['/admin/agency', row.id]);
